@@ -11,9 +11,7 @@ export class SimpleComponent extends React.PureComponent {
   render() {
     return (
       <div className={className}>
-        <span>
-          hello
-        </span>
+        <span>hello</span>
       </div>
     )
   }

@@ -9,6 +9,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && tsc -p tsconfig.json --outDir lib --diagnostics",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "precommit": "lint-staged",
     "start": "webpack-dev-server --progress --color",
     "test": "jest --no-cache --ci"
   },
@@ -19,15 +21,20 @@
     "coveralls": "^3.0.2",
     "emotion": "^9.2.8",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^0.14.3",
     "jest": "^23.5.0",
     "jest-specific-snapshot": "^1.0.0",
+    "lint-staged": "^7.2.2",
     "mini-css-extract-plugin": "^0.4.2",
+    "prettier": "^1.14.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-emotion": "^9.2.8",
     "ts-jest": "^23.1.4",
     "ts-loader": "^5.1.0",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.0.3",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
@@ -55,6 +62,21 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.ts"
+    ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "parser": "typescript"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "tslint -c tslint.json --fix",
+      "git add"
     ]
   }
 }

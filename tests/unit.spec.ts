@@ -9,8 +9,15 @@ import { addSerializer } from 'jest-specific-snapshot'
 const printer = ts.createPrinter()
 const baseDir = join(process.cwd(), 'tests', 'fixtures')
 const fixtures = fs.readdirSync(baseDir)
-const { config } = ts.parseConfigFileTextToJson('tsconfig.json', fs.readFileSync(join(process.cwd(), 'tsconfig.json'), 'utf-8'))
-const { options: compilerOptions } = ts.convertCompilerOptionsFromJson(config.compilerOptions, process.cwd(), 'tsconfig.json')
+const { config } = ts.parseConfigFileTextToJson(
+  'tsconfig.json',
+  fs.readFileSync(join(process.cwd(), 'tsconfig.json'), 'utf-8'),
+)
+const { options: compilerOptions } = ts.convertCompilerOptionsFromJson(
+  config.compilerOptions,
+  process.cwd(),
+  'tsconfig.json',
+)
 
 interface TransformBaseline {
   type: 'transform-baseline'
@@ -22,8 +29,12 @@ interface TransformBaseline {
 
 addSerializer({
   test: (obj: any) => obj && obj.type === 'transform-baseline',
-  print: (obj: TransformBaseline, _print: (object: any) => string, indent: (str: string) => string) =>
-`
+  print: (
+    obj: TransformBaseline,
+    _print: (object: any) => string,
+    indent: (str: string) => string,
+  ) =>
+    `
 File: ${obj.filename}
 TypeScript before transform:
 ${indent(obj.content)}
@@ -33,23 +44,40 @@ ${indent(obj.content)}
 
 TypeScript after transform:
 ${indent(obj.transformed).replace(/    /g, '  ')}
-`
+`,
 })
 
 const __ONLY_FILES__: string[] = []
 const __SKIP_FILES__: string[] = []
 
 fixtures
-  .filter(file => file.endsWith('.tsx') || file.endsWith('.ts'))
-  .filter(file => !__ONLY_FILES__.length || __ONLY_FILES__.some(only => file.startsWith(only)))
-  .filter(file => !__ONLY_FILES__.length || __SKIP_FILES__.every(skip => !file.startsWith(skip)))
+  .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
+  .filter(
+    (file) =>
+      !__ONLY_FILES__.length ||
+      __ONLY_FILES__.some((only) => file.startsWith(only)),
+  )
+  .filter(
+    (file) =>
+      !__ONLY_FILES__.length ||
+      __SKIP_FILES__.every((skip) => !file.startsWith(skip)),
+  )
   .forEach((filename) => {
     const sourceCode = fs.readFileSync(join(baseDir, filename), 'utf-8')
 
     function transform(options?: Options): TransformBaseline {
       const emotion = createEmotionPlugin(options)
-      const sourceFile = ts.createSourceFile(join(baseDir, filename), sourceCode, ts.ScriptTarget.ESNext, true)
-      const [transformed] = ts.transform(sourceFile, [ emotion ], compilerOptions).transformed
+      const sourceFile = ts.createSourceFile(
+        join(baseDir, filename),
+        sourceCode,
+        ts.ScriptTarget.ESNext,
+        true,
+      )
+      const [transformed] = ts.transform(
+        sourceFile,
+        [emotion],
+        compilerOptions,
+      ).transformed
       return {
         transformed: printer.printFile(transformed),
         source: printer.printFile(sourceFile),
@@ -59,7 +87,12 @@ fixtures
       }
     }
 
-    const pathToSnap = join(process.cwd(), 'tests', '__snapshots__', `${filename}.shot`);
+    const pathToSnap = join(
+      process.cwd(),
+      'tests',
+      '__snapshots__',
+      `${filename}.shot`,
+    )
 
     it(`should transform ${filename} with default configs`, () => {
       const result = transform()

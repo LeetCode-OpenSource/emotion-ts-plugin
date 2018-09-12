@@ -21,11 +21,13 @@ const functions = ['css', 'keyframes', 'injectGlobal', 'merge']
 const defaultOptions: Options = {
   sourcemap: true,
   autoLabel: true,
-  labelFormat: '[local]'
+  labelFormat: '[local]',
 }
 
 export const createEmotionPlugin = (options?: Options) => {
-  const notNullOptions = options ? { ...defaultOptions, ...options } : { ...defaultOptions }
+  const notNullOptions = options
+    ? { ...defaultOptions, ...options }
+    : { ...defaultOptions }
   const transformer: ts.TransformerFactory<ts.SourceFile> = (context) => {
     let importCalls: ImportInfos[] = []
     const compilerOptions = context.getCompilerOptions()
@@ -42,39 +44,73 @@ export const createEmotionPlugin = (options?: Options) => {
       if (notNullOptions.autoLabel || notNullOptions.sourcemap) {
         if (ts.isCallExpression(node)) {
           const { expression } = node
-          if (ts.isCallExpression(expression) || ts.isPropertyAccessExpression(expression) || ts.isIdentifier(expression)) {
-            const { expression: subExpression } = ts.isIdentifier(expression) ? node : expression as (ts.CallExpression | ts.PropertyAccessExpression)
+          if (
+            ts.isCallExpression(expression) ||
+            ts.isPropertyAccessExpression(expression) ||
+            ts.isIdentifier(expression)
+          ) {
+            const { expression: subExpression } = ts.isIdentifier(expression)
+              ? node
+              : (expression as ts.CallExpression | ts.PropertyAccessExpression)
             let transformedNode = node
-            if (ts.isIdentifier(subExpression) || ts.isPropertyAccessExpression(subExpression)) {
-              const importedInfo = ts.isIdentifier(subExpression) ?
-                importCalls.find((imported) => imported.name === subExpression.text) :
-                importCalls.find(imported => imported.name === (subExpression.expression as ts.Identifier).text)
+            if (
+              ts.isIdentifier(subExpression) ||
+              ts.isPropertyAccessExpression(subExpression)
+            ) {
+              const importedInfo = ts.isIdentifier(subExpression)
+                ? importCalls.find(
+                    (imported) => imported.name === subExpression.text,
+                  )
+                : importCalls.find(
+                    (imported) =>
+                      imported.name ===
+                      (subExpression.expression as ts.Identifier).text,
+                  )
               if (importedInfo) {
-                const propertyToAccess = importedInfo.type === 'namespaceImport' ?
-                  ((expression as ts.PropertyAccessExpression).name || (subExpression as ts.PropertyAccessExpression).name).text :
-                  ''
-                const isEmotionCall = (
-                  importedInfo.type === 'namespaceImport' &&
-                  (propertyToAccess === 'default' || functions.includes(propertyToAccess))
-                ) || importedInfo.type !== 'namespaceImport'
+                const propertyToAccess =
+                  importedInfo.type === 'namespaceImport'
+                    ? (
+                        (expression as ts.PropertyAccessExpression).name ||
+                        (subExpression as ts.PropertyAccessExpression).name
+                      ).text
+                    : ''
+                const isEmotionCall =
+                  (importedInfo.type === 'namespaceImport' &&
+                    (propertyToAccess === 'default' ||
+                      functions.includes(propertyToAccess))) ||
+                  importedInfo.type !== 'namespaceImport'
 
                 if (isEmotionCall) {
                   if (notNullOptions.autoLabel) {
                     const rawPath = node.getSourceFile().fileName
-                    const localNameNode = (node.parent as ts.VariableDeclaration).name
+                    const localNameNode = (node.parent as ts.VariableDeclaration)
+                      .name
                     if (ts.isIdentifier(localNameNode)) {
                       const local = localNameNode.text
                       const fileName = basename(rawPath, extname(rawPath))
-                      transformedNode = ts.updateCall(node, node.expression, node.typeArguments, node.arguments.concat([
-                        ts.createStringLiteral(
-                          `label:${notNullOptions.labelFormat!.replace('[local]', local).replace('[filename]', fileName)};`
-                        )
-                      ]))
+                      transformedNode = ts.updateCall(
+                        node,
+                        node.expression,
+                        node.typeArguments,
+                        node.arguments.concat([
+                          ts.createStringLiteral(
+                            `label:${notNullOptions
+                              .labelFormat!.replace('[local]', local)
+                              .replace('[filename]', fileName)};`,
+                          ),
+                        ]),
+                      )
                     }
                   }
-                  if (notNullOptions.sourcemap && process.env.NODE_ENV !== 'production') {
+                  if (
+                    notNullOptions.sourcemap &&
+                    process.env.NODE_ENV !== 'production'
+                  ) {
                     const sourceFileNode = node.getSourceFile()
-                    const lineAndCharacter = ts.getLineAndCharacterOfPosition(sourceFileNode, node.pos)
+                    const lineAndCharacter = ts.getLineAndCharacterOfPosition(
+                      sourceFileNode,
+                      node.pos,
+                    )
                     sourcemapGenerator.addMapping({
                       generated: {
                         line: 1,
@@ -84,14 +120,25 @@ export const createEmotionPlugin = (options?: Options) => {
                       original: {
                         line: lineAndCharacter.line + 1,
                         column: lineAndCharacter.character + 1,
-                      }
+                      },
                     })
-                    const comment = convert.fromObject(sourcemapGenerator).toComment({ multiline: true })
-                    transformedNode = ts.updateCall(transformedNode, transformedNode.expression, transformedNode.typeArguments, transformedNode.arguments.concat([
-                      ts.createStringLiteral(comment),
-                    ]))
+                    const comment = convert
+                      .fromObject(sourcemapGenerator)
+                      .toComment({ multiline: true })
+                    transformedNode = ts.updateCall(
+                      transformedNode,
+                      transformedNode.expression,
+                      transformedNode.typeArguments,
+                      transformedNode.arguments.concat([
+                        ts.createStringLiteral(comment),
+                      ]),
+                    )
                   }
-                  return ts.addSyntheticLeadingComment(transformedNode, ts.SyntaxKind.MultiLineCommentTrivia, '#__PURE__')
+                  return ts.addSyntheticLeadingComment(
+                    transformedNode,
+                    ts.SyntaxKind.MultiLineCommentTrivia,
+                    '#__PURE__',
+                  )
                 }
               }
             }
@@ -104,7 +151,10 @@ export const createEmotionPlugin = (options?: Options) => {
     return (node) => {
       sourcemapGenerator = new SourceMapGenerator({
         file: basename(node.fileName),
-        sourceRoot: join('.', `${relative(process.cwd(), dirname(node.fileName))}`),
+        sourceRoot: join(
+          '.',
+          `${relative(process.cwd(), dirname(node.fileName))}`,
+        ),
       })
       return ts.visitNode(node, visitor)
     }
@@ -112,15 +162,22 @@ export const createEmotionPlugin = (options?: Options) => {
   return transformer
 }
 
-function getImportCalls(node: ts.ImportDeclaration, compilerOptions: ts.CompilerOptions) {
+function getImportCalls(
+  importDeclarationNode: ts.ImportDeclaration,
+  compilerOptions: ts.CompilerOptions,
+) {
   const importCalls: ImportInfos[] = []
-  const moduleName = (<ts.StringLiteral>node.moduleSpecifier).text
-  const { name, namedBindings } = node.importClause!
+  const moduleName = (<ts.StringLiteral>importDeclarationNode.moduleSpecifier)
+    .text
+  const { name, namedBindings } = importDeclarationNode.importClause!
   if (libraries.includes(moduleName)) {
     if (name) {
       // import emotion from 'emotion'
       // treat it as import * as emotion from 'emotion'
-      if (moduleName === 'emotion' && compilerOptions.allowSyntheticDefaultImports) {
+      if (
+        moduleName === 'emotion' &&
+        compilerOptions.allowSyntheticDefaultImports
+      ) {
         importCalls.push({
           name: name.text,
           type: 'namespaceImport',
@@ -137,26 +194,36 @@ function getImportCalls(node: ts.ImportDeclaration, compilerOptions: ts.Compiler
         namedBindings.forEachChild((node) => {
           // import { default as styled } from 'react-emotion'
           // push styled into importCalls
-          if (hasDefaultExports.includes(moduleName) && (node as ts.ImportSpecifier).propertyName && (node as ts.ImportSpecifier).propertyName!.text === 'default') {
+          if (
+            hasDefaultExports.includes(moduleName) &&
+            (node as ts.ImportSpecifier).propertyName &&
+            (node as ts.ImportSpecifier).propertyName!.text === 'default'
+          ) {
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport'
+              type: 'namedImport',
             })
           }
           // import { css as emotionCss } from 'lib in libraries'
           // push emotionCss into importCalls
-          if ((node as ts.ImportSpecifier).propertyName && functions.includes((node as ts.ImportSpecifier).propertyName!.text)) {
+          if (
+            (node as ts.ImportSpecifier).propertyName &&
+            functions.includes((node as ts.ImportSpecifier).propertyName!.text)
+          ) {
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport'
+              type: 'namedImport',
             })
           }
           // import { css } from 'lib in libraries'
           // push css into importCalls
-          if (!(node as ts.ImportSpecifier).propertyName && functions.includes((node as ts.ImportSpecifier).name!.text)) {
+          if (
+            !(node as ts.ImportSpecifier).propertyName &&
+            functions.includes((node as ts.ImportSpecifier).name!.text)
+          ) {
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport'
+              type: 'namedImport',
             })
           }
         })

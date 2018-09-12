@@ -6,19 +6,20 @@ interface Props {
   backgroundColor: string
 }
 
-const Wrapper = emotion.default('div')({
-  color: 'red',
-}, (props: Props) => ({
-  backgroundColor: props.backgroundColor,
-}))
+const Wrapper = emotion.default('div')(
+  {
+    color: 'red',
+  },
+  (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }),
+)
 
 export class SimpleComponent extends React.PureComponent {
   render() {
     return (
-      <Wrapper backgroundColor='blue'>
-        <span>
-          hello
-        </span>
+      <Wrapper backgroundColor="blue">
+        <span>hello</span>
       </Wrapper>
     )
   }
