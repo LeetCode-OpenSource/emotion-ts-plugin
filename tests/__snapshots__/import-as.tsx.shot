@@ -47,7 +47,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }));
+  }), "label:Wrapper;");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor='blue'>
@@ -171,7 +171,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor='blue'>
@@ -233,7 +233,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "label:Wrapper");
+  }), "label:Wrapper;");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor='blue'>

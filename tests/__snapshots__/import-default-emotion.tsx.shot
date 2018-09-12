@@ -38,7 +38,7 @@ TypeScript after transform:
   const className = /*#__PURE__*/ emotion.css({
     color: 'red',
     background: 'yellow',
-  });
+  }, "label:className;");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<div className={className}>
@@ -144,7 +144,7 @@ TypeScript after transform:
   const className = /*#__PURE__*/ emotion.css({
     color: 'red',
     background: 'yellow',
-  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1kZWZhdWx0LWVtb3Rpb24udHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtZGVmYXVsdC1lbW90aW9uLnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1kZWZhdWx0LWVtb3Rpb24udHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtZGVmYXVsdC1lbW90aW9uLnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<div className={className}>
@@ -197,7 +197,7 @@ TypeScript after transform:
   const className = /*#__PURE__*/ emotion.css({
     color: 'red',
     background: 'yellow',
-  }, "label:className");
+  }, "label:className;");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<div className={className}>

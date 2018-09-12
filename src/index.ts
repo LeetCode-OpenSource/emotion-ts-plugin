@@ -59,7 +59,7 @@ export const createEmotionPlugin = (options?: Options) => {
                 ) || importedInfo.type !== 'namespaceImport'
 
                 if (isEmotionCall) {
-                  if (notNullOptions.autoLabel && !notNullOptions.sourcemap) {
+                  if (notNullOptions.autoLabel) {
                     const rawPath = node.getSourceFile().fileName
                     const localNameNode = (node.parent as ts.VariableDeclaration).name
                     if (ts.isIdentifier(localNameNode)) {
@@ -67,7 +67,7 @@ export const createEmotionPlugin = (options?: Options) => {
                       const fileName = basename(rawPath, extname(rawPath))
                       transformedNode = ts.updateCall(node, node.expression, node.typeArguments, node.arguments.concat([
                         ts.createStringLiteral(
-                          'label:' + notNullOptions.labelFormat!.replace('[local]', local).replace('[filename]', fileName)
+                          `label:${notNullOptions.labelFormat!.replace('[local]', local).replace('[filename]', fileName)};`
                         )
                       ]))
                     }
