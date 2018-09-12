@@ -1,4 +1,6 @@
 # Emotion TypeScript Plugin
+[![CircleCI](https://circleci.com/gh/LeetCode-OpenSource/emotion-ts-plugin.svg?style=svg)](https://circleci.com/gh/LeetCode-OpenSource/emotion-ts-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/LeetCode-OpenSource/emotion-ts-plugin/badge.svg?branch=master)](https://coveralls.io/github/LeetCode-OpenSource/emotion-ts-plugin?branch=master)
 
 ## Usage
 
