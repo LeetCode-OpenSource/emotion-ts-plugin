@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to import-default-emotion.tsx if NODE_ENV === 'production' 1`] = `
+
+File: import-default-emotion.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'emotion'
+  
+  const className = emotion.css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <div className={className}>
+          <span>
+            hello
+          </span>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'emotion';
+  const className = /*#__PURE__*/ emotion.css({
+    color: 'red',
+    background: 'yellow',
+  });
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<div className={className}>
+      <span>
+      hello
+      </span>
+    </div>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform import-default-emotion.tsx with autoLabel false 1`] = `
+
+File: import-default-emotion.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'emotion'
+  
+  const className = emotion.css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <div className={className}>
+          <span>
+            hello
+          </span>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'emotion';
+  const className = /*#__PURE__*/ emotion.css({
+    color: 'red',
+    background: 'yellow',
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1kZWZhdWx0LWVtb3Rpb24udHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtZGVmYXVsdC1lbW90aW9uLnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<div className={className}>
+      <span>
+      hello
+      </span>
+    </div>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform import-default-emotion.tsx with default configs 1`] = `
+
+File: import-default-emotion.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'emotion'
+  
+  const className = emotion.css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <div className={className}>
+          <span>
+            hello
+          </span>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'emotion';
+  const className = /*#__PURE__*/ emotion.css({
+    color: 'red',
+    background: 'yellow',
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1kZWZhdWx0LWVtb3Rpb24udHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtZGVmYXVsdC1lbW90aW9uLnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<div className={className}>
+      <span>
+      hello
+      </span>
+    </div>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform import-default-emotion.tsx with sourcemap false 1`] = `
+
+File: import-default-emotion.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'emotion'
+  
+  const className = emotion.css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <div className={className}>
+          <span>
+            hello
+          </span>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'emotion';
+  const className = /*#__PURE__*/ emotion.css({
+    color: 'red',
+    background: 'yellow',
+  }, "label:className");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<div className={className}>
+      <span>
+      hello
+      </span>
+    </div>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;

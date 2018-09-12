@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to namespace-import.tsx if NODE_ENV === 'production' 1`] = `
+
+File: namespace-import.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import * as emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }))
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor='blue'>
+          <span>
+            hello
+          </span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import * as emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }));
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor='blue'>
+      <span>
+      hello
+      </span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform namespace-import.tsx with autoLabel false 1`] = `
+
+File: namespace-import.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import * as emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }))
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor='blue'>
+          <span>
+            hello
+          </span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import * as emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor='blue'>
+      <span>
+      hello
+      </span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform namespace-import.tsx with default configs 1`] = `
+
+File: namespace-import.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import * as emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }))
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor='blue'>
+          <span>
+            hello
+          </span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import * as emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiJ0ZXN0cy9maXh0dXJlcyJ9 */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor='blue'>
+      <span>
+      hello
+      </span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform namespace-import.tsx with sourcemap false 1`] = `
+
+File: namespace-import.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import * as emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }))
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor='blue'>
+          <span>
+            hello
+          </span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import * as emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor='blue'>
+      <span>
+      hello
+      </span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
