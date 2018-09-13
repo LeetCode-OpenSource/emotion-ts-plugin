@@ -1,7 +1,7 @@
 import 'somepolyfill'
+import { default as emotion } from 'react-emotion'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { default as emotion } from 'react-emotion'
 
 interface Props {
   backgroundColor: string

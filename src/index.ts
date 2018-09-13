@@ -37,7 +37,7 @@ export const createEmotionPlugin = (options?: Options) => {
         return ts.visitEachChild(node, visitor, context)
       }
       if (ts.isImportDeclaration(node)) {
-        importCalls = getImportCalls(node, compilerOptions)
+        importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
         return node
       }
 
@@ -156,7 +156,9 @@ export const createEmotionPlugin = (options?: Options) => {
           `${relative(process.cwd(), dirname(node.fileName))}`,
         ),
       })
-      return ts.visitNode(node, visitor)
+      const distNode = ts.visitNode(node, visitor)
+      importCalls = []
+      return distNode
     }
   }
   return transformer

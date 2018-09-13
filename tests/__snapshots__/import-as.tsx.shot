@@ -5,9 +5,9 @@ exports[`should not add sourcemap to import-as.tsx if NODE_ENV === 'production' 
 File: import-as.tsx
 TypeScript before transform:
   import 'somepolyfill'
+  import { default as emotion } from 'react-emotion'
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { default as emotion } from 'react-emotion'
   
   interface Props {
     backgroundColor: string
@@ -40,9 +40,9 @@ TypeScript before transform:
 
 TypeScript after transform:
   import 'somepolyfill';
+  import { default as emotion } from 'react-emotion';
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { default as emotion } from 'react-emotion';
   interface Props {
     backgroundColor: string;
   }
@@ -68,9 +68,9 @@ exports[`should transform import-as.tsx with autoLabel false 1`] = `
 File: import-as.tsx
 TypeScript before transform:
   import 'somepolyfill'
+  import { default as emotion } from 'react-emotion'
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { default as emotion } from 'react-emotion'
   
   interface Props {
     backgroundColor: string
@@ -103,9 +103,9 @@ TypeScript before transform:
 
 TypeScript after transform:
   import 'somepolyfill';
+  import { default as emotion } from 'react-emotion';
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { default as emotion } from 'react-emotion';
   interface Props {
     backgroundColor: string;
   }
@@ -131,9 +131,9 @@ exports[`should transform import-as.tsx with default configs 1`] = `
 File: import-as.tsx
 TypeScript before transform:
   import 'somepolyfill'
+  import { default as emotion } from 'react-emotion'
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { default as emotion } from 'react-emotion'
   
   interface Props {
     backgroundColor: string
@@ -166,9 +166,9 @@ TypeScript before transform:
 
 TypeScript after transform:
   import 'somepolyfill';
+  import { default as emotion } from 'react-emotion';
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { default as emotion } from 'react-emotion';
   interface Props {
     backgroundColor: string;
   }
@@ -194,9 +194,9 @@ exports[`should transform import-as.tsx with sourcemap false 1`] = `
 File: import-as.tsx
 TypeScript before transform:
   import 'somepolyfill'
+  import { default as emotion } from 'react-emotion'
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { default as emotion } from 'react-emotion'
   
   interface Props {
     backgroundColor: string
@@ -229,9 +229,9 @@ TypeScript before transform:
 
 TypeScript after transform:
   import 'somepolyfill';
+  import { default as emotion } from 'react-emotion';
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { default as emotion } from 'react-emotion';
   interface Props {
     backgroundColor: string;
   }
