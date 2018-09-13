@@ -169,6 +169,9 @@ function getImportCalls(
   const importCalls: ImportInfos[] = []
   const moduleName = (<ts.StringLiteral>importDeclarationNode.moduleSpecifier)
     .text
+  if (!importDeclarationNode.importClause) {
+    return importCalls
+  }
   const { name, namedBindings } = importDeclarationNode.importClause!
   if (libraries.includes(moduleName)) {
     if (name) {

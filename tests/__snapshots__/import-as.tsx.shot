@@ -4,6 +4,7 @@ exports[`should not add sourcemap to import-as.tsx if NODE_ENV === 'production' 
 
 File: import-as.tsx
 TypeScript before transform:
+  import 'somepolyfill'
   import React from 'react'
   import ReactDOM from 'react-dom'
   import { default as emotion } from 'react-emotion'
@@ -38,6 +39,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import 'somepolyfill';
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { default as emotion } from 'react-emotion';
@@ -65,6 +67,7 @@ exports[`should transform import-as.tsx with autoLabel false 1`] = `
 
 File: import-as.tsx
 TypeScript before transform:
+  import 'somepolyfill'
   import React from 'react'
   import ReactDOM from 'react-dom'
   import { default as emotion } from 'react-emotion'
@@ -99,6 +102,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import 'somepolyfill';
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { default as emotion } from 'react-emotion';
@@ -109,7 +113,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBU2dCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -126,6 +130,7 @@ exports[`should transform import-as.tsx with default configs 1`] = `
 
 File: import-as.tsx
 TypeScript before transform:
+  import 'somepolyfill'
   import React from 'react'
   import ReactDOM from 'react-dom'
   import { default as emotion } from 'react-emotion'
@@ -160,6 +165,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import 'somepolyfill';
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { default as emotion } from 'react-emotion';
@@ -170,7 +176,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImltcG9ydC1hcy50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBU2dCIiwiZmlsZSI6ImltcG9ydC1hcy50c3giLCJzb3VyY2VSb290IjoidGVzdHMvZml4dHVyZXMifQ== */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -187,6 +193,7 @@ exports[`should transform import-as.tsx with sourcemap false 1`] = `
 
 File: import-as.tsx
 TypeScript before transform:
+  import 'somepolyfill'
   import React from 'react'
   import ReactDOM from 'react-dom'
   import { default as emotion } from 'react-emotion'
@@ -221,6 +228,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import 'somepolyfill';
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { default as emotion } from 'react-emotion';
