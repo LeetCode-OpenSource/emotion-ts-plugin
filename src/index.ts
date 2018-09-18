@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import { SourceMapGenerator } from 'source-map'
 import * as convert from 'convert-source-map'
-import { basename, relative, dirname, join, extname } from 'path'
+import { basename, relative, extname } from 'path'
 
 export interface Options {
   sourcemap?: boolean
@@ -111,17 +111,25 @@ export const createEmotionPlugin = (options?: Options) => {
                       sourceFileNode,
                       node.pos,
                     )
+                    const sourceFileName = relative(
+                      process.cwd(),
+                      sourceFileNode.fileName,
+                    )
                     sourcemapGenerator.addMapping({
                       generated: {
                         line: 1,
                         column: 0,
                       },
-                      source: join(basename(sourceFileNode.fileName)),
+                      source: sourceFileName,
                       original: {
                         line: lineAndCharacter.line + 1,
                         column: lineAndCharacter.character + 1,
                       },
                     })
+                    sourcemapGenerator.setSourceContent(
+                      sourceFileName,
+                      sourceFileNode.text,
+                    )
                     const comment = convert
                       .fromObject(sourcemapGenerator)
                       .toComment({ multiline: true })
@@ -151,10 +159,7 @@ export const createEmotionPlugin = (options?: Options) => {
     return (node) => {
       sourcemapGenerator = new SourceMapGenerator({
         file: basename(node.fileName),
-        sourceRoot: join(
-          '.',
-          `${relative(process.cwd(), dirname(node.fileName))}`,
-        ),
+        sourceRoot: '',
       })
       const distNode = ts.visitNode(node, visitor)
       importCalls = []
