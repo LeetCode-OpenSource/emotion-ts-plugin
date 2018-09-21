@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to css-in-callback.tsx if NODE_ENV === 'production' 1`] = `
+
+File: css-in-callback.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled, { css } from 'react-emotion'
+  
+  const styles = (props: any) =>
+    css({
+      color: 'red',
+      background: 'yellow',
+      width: \`\${props.scale * 100}px\`,
+    })
+  
+  const Container = styled('button')\`
+    \${styles}
+    \${() => css({
+      background: 'red',
+    })}
+  \`
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Container>
+          <span>hello</span>
+        </Container>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled, { css } from 'react-emotion';
+  const styles = (props: any) => /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+    width: \`\${props.scale * 100}px\`,
+  });
+  const Container = /*#__PURE__*/ styled('button') \`
+  \${styles}
+  \${() => /*#__PURE__*/ css({
+    background: 'red',
+  })}
+  \`;
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Container>
+      <span>hello</span>
+    </Container>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform css-in-callback.tsx with autoLabel false 1`] = `
+
+File: css-in-callback.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled, { css } from 'react-emotion'
+  
+  const styles = (props: any) =>
+    css({
+      color: 'red',
+      background: 'yellow',
+      width: \`\${props.scale * 100}px\`,
+    })
+  
+  const Container = styled('button')\`
+    \${styles}
+    \${() => css({
+      background: 'red',
+    })}
+  \`
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Container>
+          <span>hello</span>
+        </Container>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled, { css } from 'react-emotion';
+  const styles = (props: any) => /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+    width: \`\${props.scale * 100}px\`,
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCIiwiZmlsZSI6ImNzcy1pbi1jYWxsYmFjay50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQsIHsgY3NzIH0gZnJvbSAncmVhY3QtZW1vdGlvbidcblxuY29uc3Qgc3R5bGVzID0gKHByb3BzOiBhbnkpID0+XG4gIGNzcyh7XG4gICAgY29sb3I6ICdyZWQnLFxuICAgIGJhY2tncm91bmQ6ICd5ZWxsb3cnLFxuICAgIHdpZHRoOiBgJHtwcm9wcy5zY2FsZSAqIDEwMH1weGAsXG4gIH0pXG5cbmNvbnN0IENvbnRhaW5lciA9IHN0eWxlZCgnYnV0dG9uJylgXG4gICR7c3R5bGVzfVxuICAkeygpID0+IGNzcyh7XG4gICAgYmFja2dyb3VuZDogJ3JlZCcsXG4gIH0pfVxuYFxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxDb250YWluZXI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9Db250YWluZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const Container = /*#__PURE__*/ styled('button', "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCLEFBT2IiLCJmaWxlIjoiY3NzLWluLWNhbGxiYWNrLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCwgeyBjc3MgfSBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5jb25zdCBzdHlsZXMgPSAocHJvcHM6IGFueSkgPT5cbiAgY3NzKHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gICAgYmFja2dyb3VuZDogJ3llbGxvdycsXG4gICAgd2lkdGg6IGAke3Byb3BzLnNjYWxlICogMTAwfXB4YCxcbiAgfSlcblxuY29uc3QgQ29udGFpbmVyID0gc3R5bGVkKCdidXR0b24nKWBcbiAgJHtzdHlsZXN9XG4gICR7KCkgPT4gY3NzKHtcbiAgICBiYWNrZ3JvdW5kOiAncmVkJyxcbiAgfSl9XG5gXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPENvbnRhaW5lcj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L0NvbnRhaW5lcj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */") \`
+  \${styles}
+  \${() => /*#__PURE__*/ css({
+    background: 'red',
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCLEFBT2IsQUFFUiIsImZpbGUiOiJjc3MtaW4tY2FsbGJhY2sudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgc3R5bGVkLCB7IGNzcyB9IGZyb20gJ3JlYWN0LWVtb3Rpb24nXG5cbmNvbnN0IHN0eWxlcyA9IChwcm9wczogYW55KSA9PlxuICBjc3Moe1xuICAgIGNvbG9yOiAncmVkJyxcbiAgICBiYWNrZ3JvdW5kOiAneWVsbG93JyxcbiAgICB3aWR0aDogYCR7cHJvcHMuc2NhbGUgKiAxMDB9cHhgLFxuICB9KVxuXG5jb25zdCBDb250YWluZXIgPSBzdHlsZWQoJ2J1dHRvbicpYFxuICAke3N0eWxlc31cbiAgJHsoKSA9PiBjc3Moe1xuICAgIGJhY2tncm91bmQ6ICdyZWQnLFxuICB9KX1cbmBcbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8Q29udGFpbmVyPlxuICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgIDwvQ29udGFpbmVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */")}
+  \`;
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Container>
+      <span>hello</span>
+    </Container>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform css-in-callback.tsx with default configs 1`] = `
+
+File: css-in-callback.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled, { css } from 'react-emotion'
+  
+  const styles = (props: any) =>
+    css({
+      color: 'red',
+      background: 'yellow',
+      width: \`\${props.scale * 100}px\`,
+    })
+  
+  const Container = styled('button')\`
+    \${styles}
+    \${() => css({
+      background: 'red',
+    })}
+  \`
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Container>
+          <span>hello</span>
+        </Container>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled, { css } from 'react-emotion';
+  const styles = (props: any) => /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+    width: \`\${props.scale * 100}px\`,
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCIiwiZmlsZSI6ImNzcy1pbi1jYWxsYmFjay50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQsIHsgY3NzIH0gZnJvbSAncmVhY3QtZW1vdGlvbidcblxuY29uc3Qgc3R5bGVzID0gKHByb3BzOiBhbnkpID0+XG4gIGNzcyh7XG4gICAgY29sb3I6ICdyZWQnLFxuICAgIGJhY2tncm91bmQ6ICd5ZWxsb3cnLFxuICAgIHdpZHRoOiBgJHtwcm9wcy5zY2FsZSAqIDEwMH1weGAsXG4gIH0pXG5cbmNvbnN0IENvbnRhaW5lciA9IHN0eWxlZCgnYnV0dG9uJylgXG4gICR7c3R5bGVzfVxuICAkeygpID0+IGNzcyh7XG4gICAgYmFja2dyb3VuZDogJ3JlZCcsXG4gIH0pfVxuYFxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxDb250YWluZXI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9Db250YWluZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const Container = /*#__PURE__*/ styled('button', "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCLEFBT2IiLCJmaWxlIjoiY3NzLWluLWNhbGxiYWNrLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCwgeyBjc3MgfSBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5jb25zdCBzdHlsZXMgPSAocHJvcHM6IGFueSkgPT5cbiAgY3NzKHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gICAgYmFja2dyb3VuZDogJ3llbGxvdycsXG4gICAgd2lkdGg6IGAke3Byb3BzLnNjYWxlICogMTAwfXB4YCxcbiAgfSlcblxuY29uc3QgQ29udGFpbmVyID0gc3R5bGVkKCdidXR0b24nKWBcbiAgJHtzdHlsZXN9XG4gICR7KCkgPT4gY3NzKHtcbiAgICBiYWNrZ3JvdW5kOiAncmVkJyxcbiAgfSl9XG5gXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPENvbnRhaW5lcj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L0NvbnRhaW5lcj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */") \`
+  \${styles}
+  \${() => /*#__PURE__*/ css({
+    background: 'red',
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Nzcy1pbi1jYWxsYmFjay50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSStCLEFBT2IsQUFFUiIsImZpbGUiOiJjc3MtaW4tY2FsbGJhY2sudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgc3R5bGVkLCB7IGNzcyB9IGZyb20gJ3JlYWN0LWVtb3Rpb24nXG5cbmNvbnN0IHN0eWxlcyA9IChwcm9wczogYW55KSA9PlxuICBjc3Moe1xuICAgIGNvbG9yOiAncmVkJyxcbiAgICBiYWNrZ3JvdW5kOiAneWVsbG93JyxcbiAgICB3aWR0aDogYCR7cHJvcHMuc2NhbGUgKiAxMDB9cHhgLFxuICB9KVxuXG5jb25zdCBDb250YWluZXIgPSBzdHlsZWQoJ2J1dHRvbicpYFxuICAke3N0eWxlc31cbiAgJHsoKSA9PiBjc3Moe1xuICAgIGJhY2tncm91bmQ6ICdyZWQnLFxuICB9KX1cbmBcbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8Q29udGFpbmVyPlxuICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgIDwvQ29udGFpbmVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */")}
+  \`;
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Container>
+      <span>hello</span>
+    </Container>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform css-in-callback.tsx with sourcemap false 1`] = `
+
+File: css-in-callback.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled, { css } from 'react-emotion'
+  
+  const styles = (props: any) =>
+    css({
+      color: 'red',
+      background: 'yellow',
+      width: \`\${props.scale * 100}px\`,
+    })
+  
+  const Container = styled('button')\`
+    \${styles}
+    \${() => css({
+      background: 'red',
+    })}
+  \`
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Container>
+          <span>hello</span>
+        </Container>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled, { css } from 'react-emotion';
+  const styles = (props: any) => /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+    width: \`\${props.scale * 100}px\`,
+  });
+  const Container = /*#__PURE__*/ styled('button') \`
+  \${styles}
+  \${() => /*#__PURE__*/ css({
+    background: 'red',
+  })}
+  \`;
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Container>
+      <span>hello</span>
+    </Container>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;

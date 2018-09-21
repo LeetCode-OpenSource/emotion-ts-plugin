@@ -85,7 +85,7 @@ export const createEmotionPlugin = (options?: Options) => {
                     const rawPath = node.getSourceFile().fileName
                     const localNameNode = (node.parent as ts.VariableDeclaration)
                       .name
-                    if (ts.isIdentifier(localNameNode)) {
+                    if (localNameNode && ts.isIdentifier(localNameNode)) {
                       const local = localNameNode.text
                       const fileName = basename(rawPath, extname(rawPath))
                       transformedNode = ts.updateCall(
