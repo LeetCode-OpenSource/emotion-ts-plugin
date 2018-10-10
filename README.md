@@ -46,7 +46,7 @@
       <td>components as selectors</td>
       <td align="center"></td>
       <td align="center">✅</td>
-      <td align="center">⛔️</td>
+      <td align="center">✅</td>
       <td>Allows an emotion component to be <a href="https://emotion.sh/docs/styled#targeting-another-emotion-component">used as a CSS selector</a>.</td>
     </tr>
     <tr>

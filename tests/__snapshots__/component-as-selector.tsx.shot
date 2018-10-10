@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to component-as-selector.tsx if NODE_ENV === 'production' 1`] = `
+
+File: component-as-selector.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = styled('div')(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const Parent = styled('div')({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Parent>
+          <Wrapper backgroundColor="blue">
+            <span>hello</span>
+          </Wrapper>
+        </Parent>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf0"
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf1"
+  })({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  }, "label:Parent;");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Parent>
+      <Wrapper backgroundColor="blue">
+      <span>hello</span>
+      </Wrapper>
+    </Parent>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform component-as-selector.tsx with autoLabel false 1`] = `
+
+File: component-as-selector.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = styled('div')(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const Parent = styled('div')({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Parent>
+          <Wrapper backgroundColor="blue">
+            <span>hello</span>
+          </Wrapper>
+        </Parent>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf0"
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAncmVhY3QtZW1vdGlvbidcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IHN0eWxlZCgnZGl2JykoXG4gIHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gIH0sXG4gIChwcm9wczogUHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBQYXJlbnQgPSBzdHlsZWQoJ2RpdicpKHtcbiAgW2Ake1dyYXBwZXJ9YF06IHtcbiAgICBmb250U2l6ZTogJzEwMHB4JyxcbiAgfVxufSlcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxQYXJlbnQ+XG4gICAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyPlxuICAgICAgPC9QYXJlbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf1"
+  })({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU0QiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Parent>
+      <Wrapper backgroundColor="blue">
+      <span>hello</span>
+      </Wrapper>
+    </Parent>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform component-as-selector.tsx with default configs 1`] = `
+
+File: component-as-selector.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = styled('div')(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const Parent = styled('div')({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Parent>
+          <Wrapper backgroundColor="blue">
+            <span>hello</span>
+          </Wrapper>
+        </Parent>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf0"
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAncmVhY3QtZW1vdGlvbidcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IHN0eWxlZCgnZGl2JykoXG4gIHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gIH0sXG4gIChwcm9wczogUHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBQYXJlbnQgPSBzdHlsZWQoJ2RpdicpKHtcbiAgW2Ake1dyYXBwZXJ9YF06IHtcbiAgICBmb250U2l6ZTogJzEwMHB4JyxcbiAgfVxufSlcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxQYXJlbnQ+XG4gICAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyPlxuICAgICAgPC9QYXJlbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf1"
+  })({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  }, "label:Parent;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU0QiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Parent>
+      <Wrapper backgroundColor="blue">
+      <span>hello</span>
+      </Wrapper>
+    </Parent>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform component-as-selector.tsx with sourcemap false 1`] = `
+
+File: component-as-selector.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import styled from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = styled('div')(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const Parent = styled('div')({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Parent>
+          <Wrapper backgroundColor="blue">
+            <span>hello</span>
+          </Wrapper>
+        </Parent>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import styled from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf0"
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf1"
+  })({
+    [\`\${Wrapper}\`]: {
+      fontSize: '100px',
+    }
+  }, "label:Parent;");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Parent>
+      <Wrapper backgroundColor="blue">
+      <span>hello</span>
+      </Wrapper>
+    </Parent>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;

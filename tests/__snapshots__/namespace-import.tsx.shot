@@ -44,7 +44,9 @@ TypeScript after transform:
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+  const Wrapper = /*#__PURE__*/ emotion.default('div', {
+    target: "e5i1odf0"
+  })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
@@ -105,7 +107,9 @@ TypeScript after transform:
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+  const Wrapper = /*#__PURE__*/ emotion.default('div', {
+    target: "e5i1odf0"
+  })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
@@ -166,7 +170,9 @@ TypeScript after transform:
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+  const Wrapper = /*#__PURE__*/ emotion.default('div', {
+    target: "e5i1odf0"
+  })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
@@ -227,7 +233,9 @@ TypeScript after transform:
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion.default('div')({
+  const Wrapper = /*#__PURE__*/ emotion.default('div', {
+    target: "e5i1odf0"
+  })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
