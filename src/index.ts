@@ -1,7 +1,11 @@
 import * as ts from 'typescript'
 import { SourceMapGenerator } from 'source-map'
 import * as convert from 'convert-source-map'
-import { basename, relative, extname } from 'path'
+import { basename, relative, extname, normalize } from 'path'
+import { memoize } from 'lodash'
+import findRoot from 'find-root'
+
+const hashString = require('@emotion/hash')
 
 export interface Options {
   sourcemap?: boolean
@@ -24,6 +28,9 @@ const defaultOptions: Options = {
   labelFormat: '[local]',
 }
 
+const getPackageRootPath = memoize((filename: string) => findRoot(filename))
+const hashArray = (arr: Array<string>) => hashString(arr.join(''))
+
 export const createEmotionPlugin = (options?: Options) => {
   const notNullOptions = options
     ? { ...defaultOptions, ...options }
@@ -32,6 +39,8 @@ export const createEmotionPlugin = (options?: Options) => {
     let importCalls: ImportInfos[] = []
     const compilerOptions = context.getCompilerOptions()
     let sourcemapGenerator: SourceMapGenerator
+    let emotionTargetClassNameCount = 0
+    let sourceFile: ts.SourceFile
     const visitor: ts.Visitor = (node) => {
       if (ts.isSourceFile(node)) {
         return ts.visitEachChild(node, visitor, context)
@@ -53,6 +62,64 @@ export const createEmotionPlugin = (options?: Options) => {
               ? node
               : (expression as ts.CallExpression | ts.PropertyAccessExpression)
             let transformedNode = node
+            let updateCallFunction = () => transformedNode
+            if (ts.isCallExpression(expression)) {
+              updateCallFunction = () => {
+                if (expression.arguments.length === 1) {
+                  const filename = sourceFile.fileName
+                  let moduleName = ''
+                  let rootPath = filename
+
+                  try {
+                    rootPath = getPackageRootPath(filename)
+                    moduleName = require(rootPath + '/package.json').name
+                  } catch (err) {
+                    //
+                  }
+                  const finalPath =
+                    filename === rootPath
+                      ? 'root'
+                      : filename.slice(rootPath.length)
+
+                  const positionInFile = emotionTargetClassNameCount++
+
+                  const stuffToHash = [moduleName]
+
+                  if (finalPath) {
+                    stuffToHash.push(normalize(finalPath))
+                  } else {
+                    stuffToHash.push(sourceFile.getText())
+                  }
+
+                  const stableClassName = `e${hashArray(
+                    stuffToHash,
+                  )}${positionInFile}`
+                  const updatedCall = ts.updateCall(
+                    expression,
+                    expression.expression,
+                    expression.typeArguments,
+                    expression.arguments.concat([
+                      ts.createObjectLiteral(
+                        [
+                          ts.createPropertyAssignment(
+                            ts.createIdentifier('target'),
+                            ts.createStringLiteral(stableClassName),
+                          ),
+                        ],
+                        true,
+                      ),
+                    ]),
+                  )
+                  return ts.updateCall(
+                    transformedNode,
+                    updatedCall,
+                    transformedNode.typeArguments,
+                    transformedNode.arguments,
+                  )
+                }
+                return transformedNode
+              }
+            }
             if (
               ts.isIdentifier(subExpression) ||
               ts.isPropertyAccessExpression(subExpression)
@@ -82,17 +149,17 @@ export const createEmotionPlugin = (options?: Options) => {
 
                 if (isEmotionCall) {
                   if (notNullOptions.autoLabel) {
-                    const rawPath = node.getSourceFile().fileName
+                    const rawPath = sourceFile.fileName
                     const localNameNode = (node.parent as ts.VariableDeclaration)
                       .name
                     if (localNameNode && ts.isIdentifier(localNameNode)) {
                       const local = localNameNode.text
                       const fileName = basename(rawPath, extname(rawPath))
                       transformedNode = ts.updateCall(
-                        node,
-                        node.expression,
-                        node.typeArguments,
-                        node.arguments.concat([
+                        transformedNode,
+                        transformedNode.expression,
+                        transformedNode.typeArguments,
+                        transformedNode.arguments.concat([
                           ts.createStringLiteral(
                             `label:${notNullOptions
                               .labelFormat!.replace('[local]', local)
@@ -142,11 +209,12 @@ export const createEmotionPlugin = (options?: Options) => {
                       ]),
                     )
                   }
-                  return ts.addSyntheticLeadingComment(
+                  transformedNode = ts.addSyntheticLeadingComment(
                     transformedNode,
                     ts.SyntaxKind.MultiLineCommentTrivia,
                     '#__PURE__',
                   )
+                  return updateCallFunction()
                 }
               }
             }
@@ -157,6 +225,7 @@ export const createEmotionPlugin = (options?: Options) => {
       return ts.visitEachChild(node, visitor, context)
     }
     return (node) => {
+      sourceFile = node
       sourcemapGenerator = new SourceMapGenerator({
         file: basename(node.fileName),
         sourceRoot: '',

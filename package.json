@@ -10,19 +10,20 @@
   "scripts": {
     "build": "rm -rf lib && tsc -p tsconfig.json --outDir lib --diagnostics",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "precommit": "lint-staged",
     "start": "webpack-dev-server --progress --color",
     "test": "jest --no-cache --ci"
   },
   "devDependencies": {
     "@types/convert-source-map": "^1.5.1",
+    "@types/find-root": "^1.1.1",
     "@types/jest": "^23.3.2",
+    "@types/lodash": "^4.14.117",
     "@types/react-dom": "^16.0.7",
     "coveralls": "^3.0.2",
     "emotion": "^9.2.8",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0",
-    "jest": "^23.5.0",
+    "jest": "^23.6.0",
     "jest-specific-snapshot": "^1.0.0",
     "lint-staged": "^7.2.2",
     "mini-css-extract-plugin": "^0.4.2",
@@ -41,7 +42,10 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
+    "@emotion/hash": "^0.6.6",
     "convert-source-map": "^1.6.0",
+    "find-root": "^1.1.0",
+    "lodash": "^4.17.11",
     "source-map": "^0.7.3",
     "tslib": "^1.9.3"
   },
@@ -78,5 +82,10 @@
       "tslint -c tslint.json --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
