@@ -16,33 +16,33 @@
   "devDependencies": {
     "@types/convert-source-map": "^1.5.1",
     "@types/find-root": "^1.1.1",
-    "@types/jest": "^23.3.2",
+    "@types/jest": "^23.3.5",
     "@types/lodash": "^4.14.117",
-    "@types/react-dom": "^16.0.7",
+    "@types/react-dom": "^16.0.9",
     "coveralls": "^3.0.2",
-    "emotion": "^9.2.8",
+    "emotion": "^9.2.12",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^1.0.0",
+    "husky": "^1.1.2",
     "jest": "^23.6.0",
     "jest-specific-snapshot": "^1.0.0",
-    "lint-staged": "^7.2.2",
-    "mini-css-extract-plugin": "^0.4.2",
-    "prettier": "^1.14.2",
+    "lint-staged": "^7.3.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
-    "react-emotion": "^9.2.8",
-    "ts-jest": "^23.1.4",
-    "ts-loader": "^5.1.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-emotion": "^9.2.12",
+    "ts-jest": "^23.10.4",
+    "ts-loader": "^5.2.2",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.0.3",
-    "webpack": "^4.20.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8"
+    "typescript": "^3.1.3",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "@emotion/hash": "^0.6.6",
+    "@emotion/hash": "^0.7.0",
     "convert-source-map": "^1.6.0",
     "find-root": "^1.1.0",
     "lodash": "^4.17.11",
@@ -53,6 +53,11 @@
     "lib/**"
   ],
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tests/tsconfig.json"
+      }
+    },
     "transform": {
       "^.+\\.ts?$": "ts-jest"
     },

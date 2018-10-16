@@ -5,7 +5,7 @@ import { basename, relative, extname, normalize } from 'path'
 import { memoize } from 'lodash'
 import findRoot from 'find-root'
 
-const hashString = require('@emotion/hash')
+const hashString = require('@emotion/hash').default
 
 export interface Options {
   sourcemap?: boolean

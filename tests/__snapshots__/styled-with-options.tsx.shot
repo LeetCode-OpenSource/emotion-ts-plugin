@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to styled-with-options.tsx if NODE_ENV === 'production' 1`] = `
+
+File: styled-with-options.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor="blue">
+          <span>hello</span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor="blue">
+      <span>hello</span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform styled-with-options.tsx with autoLabel false 1`] = `
+
+File: styled-with-options.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor="blue">
+          <span>hello</span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3N0eWxlZC13aXRoLW9wdGlvbnMudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJzdHlsZWQtd2l0aC1vcHRpb25zLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IGVtb3Rpb24gZnJvbSAncmVhY3QtZW1vdGlvbidcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IGVtb3Rpb24oJ2RpdicsIHtcbiAgbGFiZWw6ICdZZXMtVGhpcy1Jcy1BLUxhYmVsJyxcbn0pKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L1dyYXBwZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor="blue">
+      <span>hello</span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform styled-with-options.tsx with default configs 1`] = `
+
+File: styled-with-options.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor="blue">
+          <span>hello</span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3N0eWxlZC13aXRoLW9wdGlvbnMudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJzdHlsZWQtd2l0aC1vcHRpb25zLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IGVtb3Rpb24gZnJvbSAncmVhY3QtZW1vdGlvbidcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IGVtb3Rpb24oJ2RpdicsIHtcbiAgbGFiZWw6ICdZZXMtVGhpcy1Jcy1BLUxhYmVsJyxcbn0pKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L1dyYXBwZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor="blue">
+      <span>hello</span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
+exports[`should transform styled-with-options.tsx with sourcemap false 1`] = `
+
+File: styled-with-options.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import emotion from 'react-emotion'
+  
+  interface Props {
+    backgroundColor: string
+  }
+  
+  const Wrapper = emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })(
+    {
+      color: 'red',
+    },
+    (props: Props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <Wrapper backgroundColor="blue">
+          <span>hello</span>
+        </Wrapper>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import emotion from 'react-emotion';
+  interface Props {
+    backgroundColor: string;
+  }
+  const Wrapper = /*#__PURE__*/ emotion('div', {
+    label: 'Yes-This-Is-A-Label',
+  })({
+    color: 'red',
+  }, (props: Props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:Wrapper;");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<Wrapper backgroundColor="blue">
+      <span>hello</span>
+    </Wrapper>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
