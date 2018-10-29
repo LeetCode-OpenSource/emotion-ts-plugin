@@ -25,7 +25,7 @@
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "jest-specific-snapshot": "^1.0.0",
-    "lint-staged": "^7.3.0",
+    "lint-staged": "^8.0.0",
     "mini-css-extract-plugin": "^0.4.4",
     "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
