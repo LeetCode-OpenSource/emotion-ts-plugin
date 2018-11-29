@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import emotion from 'react-emotion'
+import styled from '@emotion/styled'
 
 interface Props {
   backgroundColor: string
 }
 
-const Wrapper = emotion('div')(
+const Wrapper = styled('div')(
   {
     color: 'red',
   },

@@ -1,5 +1,5 @@
 import 'somepolyfill'
-import { default as emotion } from 'react-emotion'
+import { default as emotion } from '@emotion/styled'
 import React from 'react'
 import ReactDOM from 'react-dom'
 

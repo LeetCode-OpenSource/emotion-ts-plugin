@@ -18,8 +18,8 @@ export interface ImportInfos {
   type: 'namedImport' | 'namespaceImport' | 'defaultImport'
 }
 
-const hasDefaultExports = ['react-emotion']
-const libraries = ['react-emotion', 'emotion']
+const hasDefaultExports = ['@emotion/styled']
+const libraries = ['@emotion/styled', 'emotion', '@emotion/core']
 const functions = ['css', 'keyframes', 'injectGlobal', 'merge']
 
 const defaultOptions: Options = {
@@ -271,7 +271,7 @@ function getImportCalls(
     if (namedBindings) {
       if (ts.isNamedImports(namedBindings)) {
         namedBindings.forEachChild((node) => {
-          // import { default as styled } from 'react-emotion'
+          // import { default as styled } from '@emotion/styled'
           // push styled into importCalls
           if (
             hasDefaultExports.includes(moduleName) &&

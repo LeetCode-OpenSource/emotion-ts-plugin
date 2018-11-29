@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { css } from 'react-emotion'
+import { css } from 'emotion'
 
 const className = css({
   color: 'red',

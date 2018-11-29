@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import * as emotion from 'react-emotion'
+import * as emotion from '@emotion/styled'
 
 interface Props {
   backgroundColor: string
