@@ -37,9 +37,9 @@
     </tr>
     <tr>
       <td><code>styled.div``</code> syntax</td>
-      <td align="center"></td>
       <td align="center">✅</td>
-      <td align="center">⛔️</td>
+      <td align="center"></td>
+      <td align="center"></td>
       <td>Supporting the shortcut syntax without the Babel plugin requires a large list of valid elements to be included in the bundle.</td>
     </tr>
     <tr>
@@ -64,25 +64,11 @@
       <td>Uglifyjs will use the injected <code>/*#__PURE__*/</code> flag comments to mark your <code>css</code> and <code>styled</code> blocks as candidates for dead code elimination.</td>
     </tr>
     <tr>
-      <td>Static Extraction (deprecated)</td>
-      <td align="center"></td>
-      <td align="center">✅</td>
-      <td align="center">⛔️</td>
-      <td>Generated CSS that is eligible for extraction can be moved to an external css file.</td>
-    </tr>
-    <tr>
       <td>Source Maps</td>
       <td align="center"></td>
       <td align="center">✅</td>
       <td align="center">✅</td>
       <td>When enabled, navigate directly to the style declaration in your javascript file.</td>
-    </tr>
-    <tr>
-      <td><code>css</code> as Prop</td>
-      <td align="center"></td>
-      <td align="center">✅</td>
-      <td align="center">⛔️</td>
-      <td>Convenient helper for calling <code>css</code> and appending the generated className during compile time.</td>
     </tr>
     <tr>
       <td>Contextual Class Names</td>
