@@ -6,7 +6,7 @@ File: namespace-import.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import * as emotion from 'react-emotion'
+  import * as emotion from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
@@ -40,7 +40,7 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import * as emotion from 'react-emotion';
+  import * as emotion from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
@@ -69,7 +69,7 @@ File: namespace-import.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import * as emotion from 'react-emotion'
+  import * as emotion from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
@@ -103,7 +103,7 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import * as emotion from 'react-emotion';
+  import * as emotion from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
@@ -113,7 +113,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL25hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0ICogYXMgZW1vdGlvbiBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gZW1vdGlvbi5kZWZhdWx0KCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL25hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0ICogYXMgZW1vdGlvbiBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBlbW90aW9uLmRlZmF1bHQoJ2RpdicpKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L1dyYXBwZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -132,7 +132,7 @@ File: namespace-import.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import * as emotion from 'react-emotion'
+  import * as emotion from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
@@ -166,7 +166,7 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import * as emotion from 'react-emotion';
+  import * as emotion from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
@@ -176,7 +176,7 @@ TypeScript after transform:
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL25hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0ICogYXMgZW1vdGlvbiBmcm9tICdyZWFjdC1lbW90aW9uJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gZW1vdGlvbi5kZWZhdWx0KCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL25hbWVzcGFjZS1pbXBvcnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQVFnQiIsImZpbGUiOiJuYW1lc3BhY2UtaW1wb3J0LnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0ICogYXMgZW1vdGlvbiBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBlbW90aW9uLmRlZmF1bHQoJ2RpdicpKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L1dyYXBwZXI+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -195,7 +195,7 @@ File: namespace-import.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import * as emotion from 'react-emotion'
+  import * as emotion from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
@@ -229,7 +229,7 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import * as emotion from 'react-emotion';
+  import * as emotion from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }

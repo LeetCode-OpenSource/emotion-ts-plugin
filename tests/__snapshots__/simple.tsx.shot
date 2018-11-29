@@ -6,13 +6,13 @@ File: simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import emotion from 'react-emotion'
+  import styled from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
   }
   
-  const Wrapper = emotion('div')(
+  const Wrapper = styled('div')(
     {
       color: 'red',
     },
@@ -40,11 +40,11 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import emotion from 'react-emotion';
+  import styled from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion('div', {
+  const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
   })({
     color: 'red',
@@ -69,13 +69,13 @@ File: simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import emotion from 'react-emotion'
+  import styled from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
   }
   
-  const Wrapper = emotion('div')(
+  const Wrapper = styled('div')(
     {
       color: 'red',
     },
@@ -103,17 +103,17 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import emotion from 'react-emotion';
+  import styled from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion('div', {
+  const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
   })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3NpbXBsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6InNpbXBsZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBlbW90aW9uIGZyb20gJ3JlYWN0LWVtb3Rpb24nXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBlbW90aW9uKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3NpbXBsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6InNpbXBsZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -132,13 +132,13 @@ File: simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import emotion from 'react-emotion'
+  import styled from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
   }
   
-  const Wrapper = emotion('div')(
+  const Wrapper = styled('div')(
     {
       color: 'red',
     },
@@ -166,17 +166,17 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import emotion from 'react-emotion';
+  import styled from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion('div', {
+  const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
   })({
     color: 'red',
   }, (props: Props) => ({
     backgroundColor: props.backgroundColor,
-  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3NpbXBsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6InNpbXBsZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBlbW90aW9uIGZyb20gJ3JlYWN0LWVtb3Rpb24nXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBlbW90aW9uKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL3NpbXBsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6InNpbXBsZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9XcmFwcGVyPlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Wrapper backgroundColor="blue">
@@ -195,13 +195,13 @@ File: simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import emotion from 'react-emotion'
+  import styled from '@emotion/styled'
   
   interface Props {
     backgroundColor: string
   }
   
-  const Wrapper = emotion('div')(
+  const Wrapper = styled('div')(
     {
       color: 'red',
     },
@@ -229,11 +229,11 @@ TypeScript before transform:
 TypeScript after transform:
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import emotion from 'react-emotion';
+  import styled from '@emotion/styled';
   interface Props {
     backgroundColor: string;
   }
-  const Wrapper = /*#__PURE__*/ emotion('div', {
+  const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
   })({
     color: 'red',
