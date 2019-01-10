@@ -87,7 +87,7 @@ const { join } = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const { createEmotionPlugin } = require('ts-emotion-plugin')
+const { createEmotionPlugin } = require('emotion-ts-plugin')
 
 module.exports = {
   entry: './tests/fixtures/simple.tsx',
