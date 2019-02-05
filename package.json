@@ -18,7 +18,7 @@
     "@emotion/styled": "^10.0.0",
     "@types/convert-source-map": "^1.5.1",
     "@types/find-root": "^1.1.1",
-    "@types/jest": "^23.3.10",
+    "@types/jest": "^24.0.0",
     "@types/lodash": "^4.14.118",
     "@types/react-dom": "^16.0.11",
     "coveralls": "^3.0.2",
