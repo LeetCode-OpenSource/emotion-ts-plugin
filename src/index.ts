@@ -11,6 +11,7 @@ export interface Options {
   sourcemap?: boolean
   autoLabel?: boolean
   labelFormat?: string
+  autoInject?: boolean
 }
 
 export interface ImportInfos {
@@ -26,10 +27,33 @@ const defaultOptions: Options = {
   sourcemap: true,
   autoLabel: true,
   labelFormat: '[local]',
+  autoInject: true,
 }
 
 const getPackageRootPath = memoize((filename: string) => findRoot(filename))
 const hashArray = (arr: Array<string>) => hashString(arr.join(''))
+
+const createImportJSXAst = memoize((propertyName: string | undefined) => {
+  const importClause = ts.createImportClause(
+    undefined,
+    ts.createNamedImports([
+      propertyName
+        ? ts.createImportSpecifier(
+            ts.createIdentifier('jsx'),
+            ts.createIdentifier(propertyName),
+          )
+        : ts.createImportSpecifier(undefined, ts.createIdentifier('jsx')),
+    ]),
+  )
+  const moduleSpecifier = ts.createStringLiteral('@emotion/core')
+
+  return ts.createImportDeclaration(
+    undefined,
+    undefined,
+    importClause,
+    moduleSpecifier,
+  )
+})
 
 export const createEmotionPlugin = (options?: Options) => {
   const notNullOptions = options
@@ -41,12 +65,23 @@ export const createEmotionPlugin = (options?: Options) => {
     let sourcemapGenerator: SourceMapGenerator
     let emotionTargetClassNameCount = 0
     let sourceFile: ts.SourceFile
+    let jsxPagmaInserted: boolean = false
     const visitor: ts.Visitor = (node) => {
       if (ts.isSourceFile(node)) {
+        jsxPagmaInserted = false
         return ts.visitEachChild(node, visitor, context)
       }
       if (ts.isImportDeclaration(node)) {
         importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
+        // insert import {jsx as jsxPagma} from '@emotion/core' behinde the react import declaration
+        if (
+          !jsxPagmaInserted &&
+          notNullOptions.autoInject &&
+          (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
+        ) {
+          jsxPagmaInserted = true
+          return [createImportJSXAst(compilerOptions.jsxFactory), node]
+        }
         return node
       }
 

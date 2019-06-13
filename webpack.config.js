@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { createEmotionPlugin } = require('./lib/index')
 
 module.exports = {
-  entry: './tests/fixtures/simple.tsx',
+  entry: './tests/fixtures/emotion-core/complex.tsx',
 
   output: {
     filename: '[name].[hash].js',
@@ -32,6 +32,7 @@ module.exports = {
           }),
           compilerOptions: {
             module: 'esnext',
+            jsxFactory: '___EmotionJSX',
           },
         },
         exclude: /node_modules/,
@@ -47,6 +48,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: join(process.cwd(), 'tests', 'fixtures', 'index.html'),
     }),
-  ]
-
+  ],
 }

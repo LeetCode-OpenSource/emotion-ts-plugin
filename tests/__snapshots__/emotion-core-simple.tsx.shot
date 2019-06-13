@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should not add sourcemap to emotion-core.tsx if NODE_ENV === 'production' 1`] = `
+exports[`should not add sourcemap to emotion-core-simple.tsx if NODE_ENV === 'production' 1`] = `
 
-File: emotion-core.tsx
+File: emotion-core-simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
@@ -30,6 +30,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from '@emotion/core';
@@ -49,9 +50,9 @@ TypeScript after transform:
 
 `;
 
-exports[`should transform emotion-core.tsx with autoLabel false 1`] = `
+exports[`should transform emotion-core-simple.tsx with autoLabel false 1`] = `
 
-File: emotion-core.tsx
+File: emotion-core-simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
@@ -79,13 +80,14 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from '@emotion/core';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSWtCIiwiZmlsZSI6ImVtb3Rpb24tY29yZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL2NvcmUnXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1zaW1wbGUudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJlbW90aW9uLWNvcmUtc2ltcGxlLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vY29yZSdcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNzcz17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<div css={className}>
@@ -98,9 +100,9 @@ TypeScript after transform:
 
 `;
 
-exports[`should transform emotion-core.tsx with default configs 1`] = `
+exports[`should transform emotion-core-simple.tsx with default configs 1`] = `
 
-File: emotion-core.tsx
+File: emotion-core-simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
@@ -128,13 +130,14 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from '@emotion/core';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSWtCIiwiZmlsZSI6ImVtb3Rpb24tY29yZS50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL2NvcmUnXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1zaW1wbGUudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJlbW90aW9uLWNvcmUtc2ltcGxlLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vY29yZSdcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNzcz17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<div css={className}>
@@ -147,9 +150,9 @@ TypeScript after transform:
 
 `;
 
-exports[`should transform emotion-core.tsx with sourcemap false 1`] = `
+exports[`should transform emotion-core-simple.tsx with sourcemap false 1`] = `
 
-File: emotion-core.tsx
+File: emotion-core-simple.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
@@ -177,6 +180,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from '@emotion/core';
