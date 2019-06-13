@@ -41,6 +41,7 @@ TypeScript before transform:
 TypeScript after transform:
   import 'somepolyfill';
   import { default as emotion } from '@emotion/styled';
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   interface Props {
@@ -106,6 +107,7 @@ TypeScript before transform:
 TypeScript after transform:
   import 'somepolyfill';
   import { default as emotion } from '@emotion/styled';
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   interface Props {
@@ -171,6 +173,7 @@ TypeScript before transform:
 TypeScript after transform:
   import 'somepolyfill';
   import { default as emotion } from '@emotion/styled';
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   interface Props {
@@ -236,6 +239,7 @@ TypeScript before transform:
 TypeScript after transform:
   import 'somepolyfill';
   import { default as emotion } from '@emotion/styled';
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   interface Props {

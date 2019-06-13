@@ -39,6 +39,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from 'emotion';
@@ -105,6 +106,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from 'emotion';
@@ -171,6 +173,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from 'emotion';
@@ -237,6 +240,7 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
+  import { jsx } from "@emotion/core";
   import React from 'react';
   import ReactDOM from 'react-dom';
   import { css } from 'emotion';

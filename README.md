@@ -113,8 +113,17 @@ module.exports = {
         options: {
           transpileOnly: true,
           getCustomTransformers: () => ({
-            before: [createEmotionPlugin()],   // <------------------- here
+            before: [createEmotionPlugin({ // <------------------- here
+              sourcemap: true,          
+              autoLabel: true,
+              labelFormat: '[local]',
+              autoInject: true,     //if the jsxFactory is set, should we auto insert the import statement
+            })],   
           }),
+          compilerOptions: {
+            // set jsx pragma to jsx or alias which is from the @emotion/core package to enable css property in jsx component
+            jsxFactory: "jsx"
+          }
         },
         exclude: /node_modules/,
       },

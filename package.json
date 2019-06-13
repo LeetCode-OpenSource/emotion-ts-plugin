@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && tsc -p tsconfig.json --outDir lib --diagnostics",
+    "dev": "rm -rf lib && tsc -p tsconfig.json --outDir lib --diagnostics -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "webpack-dev-server --progress --color",
     "test": "jest --no-cache --ci"
