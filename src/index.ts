@@ -65,21 +65,21 @@ export const createEmotionPlugin = (options?: Options) => {
     let sourcemapGenerator: SourceMapGenerator
     let emotionTargetClassNameCount = 0
     let sourceFile: ts.SourceFile
-    let jsxPagmaInserted: boolean = false
+    let inserted = false
     const visitor: ts.Visitor = (node) => {
       if (ts.isSourceFile(node)) {
-        jsxPagmaInserted = false
+        inserted = false
         return ts.visitEachChild(node, visitor, context)
       }
       if (ts.isImportDeclaration(node)) {
         importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
-        // insert import {jsx as jsxPagma} from '@emotion/core' behinde the react import declaration
+        // insert import { jsx [as jsxFactory] } from '@emotion/core' behind the react import declaration
         if (
-          !jsxPagmaInserted &&
+          !inserted &&
           notNullOptions.autoInject &&
           (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
         ) {
-          jsxPagmaInserted = true
+          inserted = true
           return [createImportJSXAst(compilerOptions.jsxFactory), node]
         }
         return node
