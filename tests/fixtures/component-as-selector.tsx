@@ -6,11 +6,20 @@ interface Props {
   backgroundColor: string
 }
 
-const Wrapper = styled('div')(
+const Wrapper = styled('div')<Props>(
   {
     color: 'red',
   },
-  (props: Props) => ({
+  (props) => ({
+    backgroundColor: props.backgroundColor,
+  }),
+)
+
+const WrapperPropertyAccess = styled.div<Props>(
+  {
+    color: 'yellow',
+  },
+  (props) => ({
     backgroundColor: props.backgroundColor,
   }),
 )
@@ -18,6 +27,9 @@ const Wrapper = styled('div')(
 const Parent = styled('div')({
   [`${Wrapper}`]: {
     fontSize: '100px',
+  },
+  [`${WrapperPropertyAccess}`]: {
+    fontSize: '80px',
   }
 })
 
@@ -28,6 +40,9 @@ export class SimpleComponent extends React.PureComponent {
         <Wrapper backgroundColor="blue">
           <span>hello</span>
         </Wrapper>
+        <WrapperPropertyAccess backgroundColor="cyan">
+          <span>world</span>
+        </WrapperPropertyAccess>
       </Parent>
     )
   }

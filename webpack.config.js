@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { createEmotionPlugin } = require('./lib/index')
 
 module.exports = {
-  entry: './tests/fixtures/emotion-core/complex.tsx',
+  entry: './tests/fixtures/component-as-selector.tsx',
 
   output: {
     filename: '[name].[hash].js',
