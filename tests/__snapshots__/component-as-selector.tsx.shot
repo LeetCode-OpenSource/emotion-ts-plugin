@@ -12,11 +12,20 @@ TypeScript before transform:
     backgroundColor: string
   }
   
-  const Wrapper = styled('div')(
+  const Wrapper = styled('div')<Props>(
     {
       color: 'red',
     },
-    (props: Props) => ({
+    (props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const WrapperPropertyAccess = styled.div<Props>(
+    {
+      color: 'yellow',
+    },
+    (props) => ({
       backgroundColor: props.backgroundColor,
     }),
   )
@@ -24,6 +33,9 @@ TypeScript before transform:
   const Parent = styled('div')({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   })
   
@@ -34,6 +46,9 @@ TypeScript before transform:
           <Wrapper backgroundColor="blue">
             <span>hello</span>
           </Wrapper>
+          <WrapperPropertyAccess backgroundColor="cyan">
+            <span>world</span>
+          </WrapperPropertyAccess>
         </Parent>
       )
     }
@@ -55,16 +70,26 @@ TypeScript after transform:
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
-  })({
+  })<Props>({
     color: 'red',
-  }, (props: Props) => ({
+  }, (props) => ({
     backgroundColor: props.backgroundColor,
   }), "label:Wrapper;");
-  const Parent = /*#__PURE__*/ styled('div', {
+  const WrapperPropertyAccess = /*#__PURE__*/ styled("div", {
     target: "e5i1odf1"
+  })<Props>({
+    color: 'yellow',
+  }, (props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:WrapperPropertyAccess;");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf2"
   })({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   }, "label:Parent;");
   export class SimpleComponent extends React.PureComponent {
@@ -73,6 +98,9 @@ TypeScript after transform:
       <Wrapper backgroundColor="blue">
       <span>hello</span>
       </Wrapper>
+      <WrapperPropertyAccess backgroundColor="cyan">
+      <span>world</span>
+      </WrapperPropertyAccess>
     </Parent>);
     }
   }
@@ -93,11 +121,20 @@ TypeScript before transform:
     backgroundColor: string
   }
   
-  const Wrapper = styled('div')(
+  const Wrapper = styled('div')<Props>(
     {
       color: 'red',
     },
-    (props: Props) => ({
+    (props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const WrapperPropertyAccess = styled.div<Props>(
+    {
+      color: 'yellow',
+    },
+    (props) => ({
       backgroundColor: props.backgroundColor,
     }),
   )
@@ -105,6 +142,9 @@ TypeScript before transform:
   const Parent = styled('div')({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   })
   
@@ -115,6 +155,9 @@ TypeScript before transform:
           <Wrapper backgroundColor="blue">
             <span>hello</span>
           </Wrapper>
+          <WrapperPropertyAccess backgroundColor="cyan">
+            <span>world</span>
+          </WrapperPropertyAccess>
         </Parent>
       )
     }
@@ -136,24 +179,37 @@ TypeScript after transform:
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
-  })({
+  })<Props>({
     color: 'red',
-  }, (props: Props) => ({
+  }, (props) => ({
     backgroundColor: props.backgroundColor,
-  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
-  const Parent = /*#__PURE__*/ styled('div', {
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKTxQcm9wcz4oXG4gIHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gIH0sXG4gIChwcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFdyYXBwZXJQcm9wZXJ0eUFjY2VzcyA9IHN0eWxlZC5kaXY8UHJvcHM+KFxuICB7XG4gICAgY29sb3I6ICd5ZWxsb3cnLFxuICB9LFxuICAocHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBQYXJlbnQgPSBzdHlsZWQoJ2RpdicpKHtcbiAgW2Ake1dyYXBwZXJ9YF06IHtcbiAgICBmb250U2l6ZTogJzEwMHB4JyxcbiAgfSxcbiAgW2Ake1dyYXBwZXJQcm9wZXJ0eUFjY2Vzc31gXToge1xuICAgIGZvbnRTaXplOiAnODBweCcsXG4gIH1cbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UGFyZW50PlxuICAgICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlcj5cbiAgICAgICAgPFdyYXBwZXJQcm9wZXJ0eUFjY2VzcyBiYWNrZ3JvdW5kQ29sb3I9XCJjeWFuXCI+XG4gICAgICAgICAgPHNwYW4+d29ybGQ8L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlclByb3BlcnR5QWNjZXNzPlxuICAgICAgPC9QYXJlbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const WrapperPropertyAccess = /*#__PURE__*/ styled("div", {
     target: "e5i1odf1"
+  })<Props>({
+    color: 'yellow',
+  }, (props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU2MiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBzdHlsZWQoJ2RpdicpPFByb3BzPihcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgV3JhcHBlclByb3BlcnR5QWNjZXNzID0gc3R5bGVkLmRpdjxQcm9wcz4oXG4gIHtcbiAgICBjb2xvcjogJ3llbGxvdycsXG4gIH0sXG4gIChwcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9LFxuICBbYCR7V3JhcHBlclByb3BlcnR5QWNjZXNzfWBdOiB7XG4gICAgZm9udFNpemU6ICc4MHB4JyxcbiAgfVxufSlcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxQYXJlbnQ+XG4gICAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyPlxuICAgICAgICA8V3JhcHBlclByb3BlcnR5QWNjZXNzIGJhY2tncm91bmRDb2xvcj1cImN5YW5cIj5cbiAgICAgICAgICA8c3Bhbj53b3JsZDwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyUHJvcGVydHlBY2Nlc3M+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf2"
   })({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
-  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU0QiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBzdHlsZWQoJ2RpdicpKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgUGFyZW50ID0gc3R5bGVkKCdkaXYnKSh7XG4gIFtgJHtXcmFwcGVyfWBdOiB7XG4gICAgZm9udFNpemU6ICcxMDBweCcsXG4gIH1cbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UGFyZW50PlxuICAgICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlcj5cbiAgICAgIDwvUGFyZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU2MsQUFTZiIsImZpbGUiOiJjb21wb25lbnQtYXMtc2VsZWN0b3IudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgc3R5bGVkIGZyb20gJ0BlbW90aW9uL3N0eWxlZCdcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IHN0eWxlZCgnZGl2Jyk8UHJvcHM+KFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBXcmFwcGVyUHJvcGVydHlBY2Nlc3MgPSBzdHlsZWQuZGl2PFByb3BzPihcbiAge1xuICAgIGNvbG9yOiAneWVsbG93JyxcbiAgfSxcbiAgKHByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgUGFyZW50ID0gc3R5bGVkKCdkaXYnKSh7XG4gIFtgJHtXcmFwcGVyfWBdOiB7XG4gICAgZm9udFNpemU6ICcxMDBweCcsXG4gIH0sXG4gIFtgJHtXcmFwcGVyUHJvcGVydHlBY2Nlc3N9YF06IHtcbiAgICBmb250U2l6ZTogJzgwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICAgIDxXcmFwcGVyUHJvcGVydHlBY2Nlc3MgYmFja2dyb3VuZENvbG9yPVwiY3lhblwiPlxuICAgICAgICAgIDxzcGFuPndvcmxkPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXJQcm9wZXJ0eUFjY2Vzcz5cbiAgICAgIDwvUGFyZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Parent>
       <Wrapper backgroundColor="blue">
       <span>hello</span>
       </Wrapper>
+      <WrapperPropertyAccess backgroundColor="cyan">
+      <span>world</span>
+      </WrapperPropertyAccess>
     </Parent>);
     }
   }
@@ -174,11 +230,20 @@ TypeScript before transform:
     backgroundColor: string
   }
   
-  const Wrapper = styled('div')(
+  const Wrapper = styled('div')<Props>(
     {
       color: 'red',
     },
-    (props: Props) => ({
+    (props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const WrapperPropertyAccess = styled.div<Props>(
+    {
+      color: 'yellow',
+    },
+    (props) => ({
       backgroundColor: props.backgroundColor,
     }),
   )
@@ -186,6 +251,9 @@ TypeScript before transform:
   const Parent = styled('div')({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   })
   
@@ -196,6 +264,9 @@ TypeScript before transform:
           <Wrapper backgroundColor="blue">
             <span>hello</span>
           </Wrapper>
+          <WrapperPropertyAccess backgroundColor="cyan">
+            <span>world</span>
+          </WrapperPropertyAccess>
         </Parent>
       )
     }
@@ -217,24 +288,37 @@ TypeScript after transform:
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
-  })({
+  })<Props>({
     color: 'red',
-  }, (props: Props) => ({
+  }, (props) => ({
     backgroundColor: props.backgroundColor,
-  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKShcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzOiBQcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
-  const Parent = /*#__PURE__*/ styled('div', {
+  }), "label:Wrapper;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6ImNvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giLCJzb3VyY2VSb290IjoiIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSdcbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJ1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBiYWNrZ3JvdW5kQ29sb3I6IHN0cmluZ1xufVxuXG5jb25zdCBXcmFwcGVyID0gc3R5bGVkKCdkaXYnKTxQcm9wcz4oXG4gIHtcbiAgICBjb2xvcjogJ3JlZCcsXG4gIH0sXG4gIChwcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFdyYXBwZXJQcm9wZXJ0eUFjY2VzcyA9IHN0eWxlZC5kaXY8UHJvcHM+KFxuICB7XG4gICAgY29sb3I6ICd5ZWxsb3cnLFxuICB9LFxuICAocHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBQYXJlbnQgPSBzdHlsZWQoJ2RpdicpKHtcbiAgW2Ake1dyYXBwZXJ9YF06IHtcbiAgICBmb250U2l6ZTogJzEwMHB4JyxcbiAgfSxcbiAgW2Ake1dyYXBwZXJQcm9wZXJ0eUFjY2Vzc31gXToge1xuICAgIGZvbnRTaXplOiAnODBweCcsXG4gIH1cbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UGFyZW50PlxuICAgICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlcj5cbiAgICAgICAgPFdyYXBwZXJQcm9wZXJ0eUFjY2VzcyBiYWNrZ3JvdW5kQ29sb3I9XCJjeWFuXCI+XG4gICAgICAgICAgPHNwYW4+d29ybGQ8L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlclByb3BlcnR5QWNjZXNzPlxuICAgICAgPC9QYXJlbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  const WrapperPropertyAccess = /*#__PURE__*/ styled("div", {
     target: "e5i1odf1"
+  })<Props>({
+    color: 'yellow',
+  }, (props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:WrapperPropertyAccess;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU2MiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBzdHlsZWQoJ2RpdicpPFByb3BzPihcbiAge1xuICAgIGNvbG9yOiAncmVkJyxcbiAgfSxcbiAgKHByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgV3JhcHBlclByb3BlcnR5QWNjZXNzID0gc3R5bGVkLmRpdjxQcm9wcz4oXG4gIHtcbiAgICBjb2xvcjogJ3llbGxvdycsXG4gIH0sXG4gIChwcm9wcykgPT4gKHtcbiAgICBiYWNrZ3JvdW5kQ29sb3I6IHByb3BzLmJhY2tncm91bmRDb2xvcixcbiAgfSksXG4pXG5cbmNvbnN0IFBhcmVudCA9IHN0eWxlZCgnZGl2Jykoe1xuICBbYCR7V3JhcHBlcn1gXToge1xuICAgIGZvbnRTaXplOiAnMTAwcHgnLFxuICB9LFxuICBbYCR7V3JhcHBlclByb3BlcnR5QWNjZXNzfWBdOiB7XG4gICAgZm9udFNpemU6ICc4MHB4JyxcbiAgfVxufSlcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFJlYWN0LlB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxQYXJlbnQ+XG4gICAgICAgIDxXcmFwcGVyIGJhY2tncm91bmRDb2xvcj1cImJsdWVcIj5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyPlxuICAgICAgICA8V3JhcHBlclByb3BlcnR5QWNjZXNzIGJhY2tncm91bmRDb2xvcj1cImN5YW5cIj5cbiAgICAgICAgICA8c3Bhbj53b3JsZDwvc3Bhbj5cbiAgICAgICAgPC9XcmFwcGVyUHJvcGVydHlBY2Nlc3M+XG4gICAgICA8L1BhcmVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf2"
   })({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
-  }, "label:Parent;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU0QiLCJmaWxlIjoiY29tcG9uZW50LWFzLXNlbGVjdG9yLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHN0eWxlZCBmcm9tICdAZW1vdGlvbi9zdHlsZWQnXG5cbmludGVyZmFjZSBQcm9wcyB7XG4gIGJhY2tncm91bmRDb2xvcjogc3RyaW5nXG59XG5cbmNvbnN0IFdyYXBwZXIgPSBzdHlsZWQoJ2RpdicpKFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHM6IFByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgUGFyZW50ID0gc3R5bGVkKCdkaXYnKSh7XG4gIFtgJHtXcmFwcGVyfWBdOiB7XG4gICAgZm9udFNpemU6ICcxMDBweCcsXG4gIH1cbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UGFyZW50PlxuICAgICAgICA8V3JhcHBlciBiYWNrZ3JvdW5kQ29sb3I9XCJibHVlXCI+XG4gICAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICAgIDwvV3JhcHBlcj5cbiAgICAgIDwvUGFyZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
+  }, "label:Parent;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2NvbXBvbmVudC1hcy1zZWxlY3Rvci50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCLEFBU2MsQUFTZiIsImZpbGUiOiJjb21wb25lbnQtYXMtc2VsZWN0b3IudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgc3R5bGVkIGZyb20gJ0BlbW90aW9uL3N0eWxlZCdcblxuaW50ZXJmYWNlIFByb3BzIHtcbiAgYmFja2dyb3VuZENvbG9yOiBzdHJpbmdcbn1cblxuY29uc3QgV3JhcHBlciA9IHN0eWxlZCgnZGl2Jyk8UHJvcHM+KFxuICB7XG4gICAgY29sb3I6ICdyZWQnLFxuICB9LFxuICAocHJvcHMpID0+ICh7XG4gICAgYmFja2dyb3VuZENvbG9yOiBwcm9wcy5iYWNrZ3JvdW5kQ29sb3IsXG4gIH0pLFxuKVxuXG5jb25zdCBXcmFwcGVyUHJvcGVydHlBY2Nlc3MgPSBzdHlsZWQuZGl2PFByb3BzPihcbiAge1xuICAgIGNvbG9yOiAneWVsbG93JyxcbiAgfSxcbiAgKHByb3BzKSA9PiAoe1xuICAgIGJhY2tncm91bmRDb2xvcjogcHJvcHMuYmFja2dyb3VuZENvbG9yLFxuICB9KSxcbilcblxuY29uc3QgUGFyZW50ID0gc3R5bGVkKCdkaXYnKSh7XG4gIFtgJHtXcmFwcGVyfWBdOiB7XG4gICAgZm9udFNpemU6ICcxMDBweCcsXG4gIH0sXG4gIFtgJHtXcmFwcGVyUHJvcGVydHlBY2Nlc3N9YF06IHtcbiAgICBmb250U2l6ZTogJzgwcHgnLFxuICB9XG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFBhcmVudD5cbiAgICAgICAgPFdyYXBwZXIgYmFja2dyb3VuZENvbG9yPVwiYmx1ZVwiPlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXI+XG4gICAgICAgIDxXcmFwcGVyUHJvcGVydHlBY2Nlc3MgYmFja2dyb3VuZENvbG9yPVwiY3lhblwiPlxuICAgICAgICAgIDxzcGFuPndvcmxkPC9zcGFuPlxuICAgICAgICA8L1dyYXBwZXJQcm9wZXJ0eUFjY2Vzcz5cbiAgICAgIDwvUGFyZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (<Parent>
       <Wrapper backgroundColor="blue">
       <span>hello</span>
       </Wrapper>
+      <WrapperPropertyAccess backgroundColor="cyan">
+      <span>world</span>
+      </WrapperPropertyAccess>
     </Parent>);
     }
   }
@@ -255,11 +339,20 @@ TypeScript before transform:
     backgroundColor: string
   }
   
-  const Wrapper = styled('div')(
+  const Wrapper = styled('div')<Props>(
     {
       color: 'red',
     },
-    (props: Props) => ({
+    (props) => ({
+      backgroundColor: props.backgroundColor,
+    }),
+  )
+  
+  const WrapperPropertyAccess = styled.div<Props>(
+    {
+      color: 'yellow',
+    },
+    (props) => ({
       backgroundColor: props.backgroundColor,
     }),
   )
@@ -267,6 +360,9 @@ TypeScript before transform:
   const Parent = styled('div')({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   })
   
@@ -277,6 +373,9 @@ TypeScript before transform:
           <Wrapper backgroundColor="blue">
             <span>hello</span>
           </Wrapper>
+          <WrapperPropertyAccess backgroundColor="cyan">
+            <span>world</span>
+          </WrapperPropertyAccess>
         </Parent>
       )
     }
@@ -298,16 +397,26 @@ TypeScript after transform:
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
     target: "e5i1odf0"
-  })({
+  })<Props>({
     color: 'red',
-  }, (props: Props) => ({
+  }, (props) => ({
     backgroundColor: props.backgroundColor,
   }), "label:Wrapper;");
-  const Parent = /*#__PURE__*/ styled('div', {
+  const WrapperPropertyAccess = /*#__PURE__*/ styled("div", {
     target: "e5i1odf1"
+  })<Props>({
+    color: 'yellow',
+  }, (props) => ({
+    backgroundColor: props.backgroundColor,
+  }), "label:WrapperPropertyAccess;");
+  const Parent = /*#__PURE__*/ styled('div', {
+    target: "e5i1odf2"
   })({
     [\`\${Wrapper}\`]: {
       fontSize: '100px',
+    },
+    [\`\${WrapperPropertyAccess}\`]: {
+      fontSize: '80px',
     }
   }, "label:Parent;");
   export class SimpleComponent extends React.PureComponent {
@@ -316,6 +425,9 @@ TypeScript after transform:
       <Wrapper backgroundColor="blue">
       <span>hello</span>
       </Wrapper>
+      <WrapperPropertyAccess backgroundColor="cyan">
+      <span>world</span>
+      </WrapperPropertyAccess>
     </Parent>);
     }
   }

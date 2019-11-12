@@ -12,11 +12,13 @@ export interface Options {
   autoLabel?: boolean
   labelFormat?: string
   autoInject?: boolean
+  customStyledModuleName?: string
 }
 
 export interface ImportInfos {
   name: string
   type: 'namedImport' | 'namespaceImport' | 'defaultImport'
+  moduleName: string
 }
 
 const hasDefaultExports = ['@emotion/styled']
@@ -87,7 +89,7 @@ export const createEmotionPlugin = (options?: Options) => {
 
       if (notNullOptions.autoLabel || notNullOptions.sourcemap) {
         if (ts.isCallExpression(node)) {
-          const { expression } = node
+          let { expression } = node
           if (
             ts.isCallExpression(expression) ||
             ts.isPropertyAccessExpression(expression) ||
@@ -98,9 +100,30 @@ export const createEmotionPlugin = (options?: Options) => {
               : (expression as ts.CallExpression | ts.PropertyAccessExpression)
             let transformedNode = node
             let updateCallFunction = () => transformedNode
-            if (ts.isCallExpression(expression)) {
+            if (ts.isPropertyAccessExpression(expression)) {
+              const info = importCalls.find(
+                (importInfo) =>
+                  importInfo.name ===
+                  ((expression as ts.PropertyAccessExpression)
+                    .expression as ts.Identifier).text,
+              )
+              if (
+                info &&
+                (info.moduleName === '@emotion/styled' ||
+                  (notNullOptions.customStyledModuleName != undefined &&
+                    notNullOptions.customStyledModuleName === info.moduleName))
+              ) {
+                expression = ts.createCall(
+                  expression.expression,
+                  [],
+                  [ts.createStringLiteral(expression.name.text)],
+                )
+              }
+            }
+            const exp = ts.isCallExpression(expression) ? expression : null
+            if (exp) {
               updateCallFunction = () => {
-                if (expression.arguments.length === 1) {
+                if (exp.arguments.length === 1) {
                   const filename = sourceFile.fileName
                   let moduleName = ''
                   let rootPath = filename
@@ -130,10 +153,10 @@ export const createEmotionPlugin = (options?: Options) => {
                     stuffToHash,
                   )}${positionInFile}`
                   const updatedCall = ts.updateCall(
-                    expression,
-                    expression.expression,
-                    expression.typeArguments,
-                    expression.arguments.concat([
+                    exp,
+                    exp.expression,
+                    exp.typeArguments,
+                    exp.arguments.concat([
                       ts.createObjectLiteral(
                         [
                           ts.createPropertyAssignment(
@@ -295,11 +318,13 @@ function getImportCalls(
         importCalls.push({
           name: name.text,
           type: 'namespaceImport',
+          moduleName,
         })
       } else if (hasDefaultExports.includes(moduleName)) {
         importCalls.push({
           name: name.text,
           type: 'defaultImport',
+          moduleName,
         })
       }
     }
@@ -316,6 +341,7 @@ function getImportCalls(
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
               type: 'namedImport',
+              moduleName,
             })
           }
           // import { css as emotionCss } from 'lib in libraries'
@@ -327,6 +353,7 @@ function getImportCalls(
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
               type: 'namedImport',
+              moduleName,
             })
           }
           // import { css } from 'lib in libraries'
@@ -338,6 +365,7 @@ function getImportCalls(
             importCalls.push({
               name: (node as ts.ImportSpecifier).name!.text,
               type: 'namedImport',
+              moduleName,
             })
           }
         })
@@ -345,6 +373,7 @@ function getImportCalls(
         importCalls.push({
           name: namedBindings.name!.text,
           type: 'namespaceImport',
+          moduleName,
         })
       }
     }
