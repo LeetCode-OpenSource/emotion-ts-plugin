@@ -48,7 +48,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ emotion('div', {
-    target: "e5i1odf0"
+    target: "ezbh3f00"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -114,7 +114,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ emotion('div', {
-    target: "e5i1odf0"
+    target: "ezbh3f00"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -180,7 +180,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ emotion('div', {
-    target: "e5i1odf0"
+    target: "ezbh3f00"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -246,7 +246,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ emotion('div', {
-    target: "e5i1odf0"
+    target: "ezbh3f00"
   })({
     color: 'red',
   }, (props: Props) => ({

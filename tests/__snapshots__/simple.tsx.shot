@@ -46,7 +46,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
-    target: "e5i1odf0"
+    target: "e4zdufa0"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -110,7 +110,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
-    target: "e5i1odf0"
+    target: "e4zdufa0"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -174,7 +174,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
-    target: "e5i1odf0"
+    target: "e4zdufa0"
   })({
     color: 'red',
   }, (props: Props) => ({
@@ -238,7 +238,7 @@ TypeScript after transform:
     backgroundColor: string;
   }
   const Wrapper = /*#__PURE__*/ styled('div', {
-    target: "e5i1odf0"
+    target: "e4zdufa0"
   })({
     color: 'red',
   }, (props: Props) => ({
