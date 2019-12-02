@@ -3296,9 +3296,9 @@ https-browserify@^1.0.0:
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
 husky@^3.0.9:
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-3.0.9.tgz#a2c3e9829bfd6b4957509a9500d2eef5dbfc8044"
-  integrity sha512-Yolhupm7le2/MqC1VYLk/cNmYxsSsqKkTyBhzQHhPK1jFnC89mmmNVuGtLNabjDI6Aj8UNIr0KpRNuBkiC4+sg==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-3.1.0.tgz#5faad520ab860582ed94f0c1a77f0f04c90b57c0"
+  integrity sha512-FJkPoHHB+6s4a+jwPqBudBDvYZsoQW5/HBuMSehC8qDiCe50kpcxeqFoDSlow+9I6wg47YxBoT3WxaURlrDIIQ==
   dependencies:
     chalk "^2.4.2"
     ci-info "^2.0.0"
@@ -5511,14 +5511,7 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-please-upgrade-node@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/please-upgrade-node/-/please-upgrade-node-3.1.1.tgz#ed320051dfcc5024fae696712c8288993595e8ac"
-  integrity sha512-KY1uHnQ2NlQHqIJQpnh/i54rKkuxCEBx+voJIS/Mvb+L2iYd2NMotwduhKTMjfC1uKoX3VXOxLjIYG66dfJTVQ==
-  dependencies:
-    semver-compare "^1.0.0"
-
-please-upgrade-node@^3.2.0:
+please-upgrade-node@^3.1.1, please-upgrade-node@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/please-upgrade-node/-/please-upgrade-node-3.2.0.tgz#aeddd3f994c933e4ad98b99d9a556efa0e2fe942"
   integrity sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==
