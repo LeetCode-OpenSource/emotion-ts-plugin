@@ -13,13 +13,13 @@ jobs:
       - run: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
       - run: sudo ln -sf ~/.yarn/bin/yarn /usr/local/bin/yarn
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: yarn
           command: |
             yarn
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run: yarn build
