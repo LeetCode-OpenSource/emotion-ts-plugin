@@ -22,9 +22,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
-      - run: greenkeeper-lockfile-update
       - run: yarn build
-      - run: greenkeeper-lockfile-upload
       - persist_to_workspace:
           root: ~/emotion-ts-plugin
           paths:
