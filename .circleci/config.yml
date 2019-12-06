@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/emotion-ts-plugin
   docker:
-    - image: circleci/node:10-browsers
+    - image: circleci/node:12-browsers
 
 version: 2
 jobs:
@@ -15,9 +15,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: yarn-with-greenkeeper
+          name: yarn
           command: |
-            sudo yarn global add greenkeeper-lockfile@1
             yarn
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
