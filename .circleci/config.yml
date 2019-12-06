@@ -39,7 +39,7 @@ jobs:
       - run: yarn test
       - run:
           name: report-coverage
-          command: npx codecov -f coverage/*.json
+          command: npx codecov
 
   deploy:
     <<: *defaults
