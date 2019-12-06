@@ -22,7 +22,6 @@
     "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.146",
     "@types/react-dom": "^16.9.4",
-    "coveralls": "^3.0.7",
     "emotion": "^10.0.23",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.9",
