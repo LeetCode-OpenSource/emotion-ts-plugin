@@ -19,7 +19,7 @@
     "@emotion/styled": "^10.0.23",
     "@types/convert-source-map": "^1.5.1",
     "@types/find-root": "^1.1.1",
-    "@types/jest": "^24.0.22",
+    "@types/jest": "^25.1.0",
     "@types/lodash": "^4.14.146",
     "@types/react-dom": "^16.9.4",
     "emotion": "^10.0.23",
