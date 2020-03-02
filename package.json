@@ -44,7 +44,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "@emotion/hash": "^0.7.3",
+    "@emotion/hash": "^0.8.0",
     "convert-source-map": "^1.7.0",
     "find-root": "^1.1.0",
     "lodash": "^4.17.15",
