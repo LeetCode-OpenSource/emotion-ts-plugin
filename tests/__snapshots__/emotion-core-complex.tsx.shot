@@ -112,6 +112,62 @@ TypeScript after transform:
 
 `;
 
+exports[`should transform emotion-core-complex.tsx with custom module 1`] = `
+
+File: emotion-core-complex.tsx
+TypeScript before transform:
+  import React from 'react'
+  import { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
+  import { css } from '@emotion/core'
+  
+  const className = css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends PureComponent {
+    render() {
+      return (
+        <React.Fragment>
+          <div css={className}>
+            <span>hello</span>
+          </div>
+        </React.Fragment>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { jsx } from "@emotion/core";
+  import React from 'react';
+  import { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
+  import { css } from '@emotion/core';
+  const className = /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9jb3JlJ1xuXG5jb25zdCBjbGFzc05hbWUgPSBjc3Moe1xuICBjb2xvcjogJ3JlZCcsXG4gIGJhY2tncm91bmQ6ICd5ZWxsb3cnLFxufSlcblxuZXhwb3J0IGNsYXNzIFNpbXBsZUNvbXBvbmVudCBleHRlbmRzIFB1cmVDb21wb25lbnQge1xuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxSZWFjdC5GcmFnbWVudD5cbiAgICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9SZWFjdC5GcmFnbWVudD5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  export class SimpleComponent extends PureComponent {
+    render() {
+      return (<React.Fragment>
+      <div css={className}>
+      <span>hello</span>
+      </div>
+    </React.Fragment>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
 exports[`should transform emotion-core-complex.tsx with default configs 1`] = `
 
 File: emotion-core-complex.tsx
