@@ -1,6 +1,6 @@
 {
   "name": "emotion-ts-plugin",
-  "version": "0.5.3",
+  "version": "0.6.1",
   "description": "TypeScript Emotion Plugin",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
