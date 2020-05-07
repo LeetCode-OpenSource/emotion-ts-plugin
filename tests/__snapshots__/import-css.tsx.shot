@@ -100,6 +100,56 @@ TypeScript after transform:
 
 `;
 
+exports[`should transform import-css.tsx with custom module 1`] = `
+
+File: import-css.tsx
+TypeScript before transform:
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  import { css } from 'emotion'
+  
+  const className = css({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (
+        <div className={className}>
+          <span>hello</span>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'))
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { jsx } from "@emotion/core";
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import { css } from 'emotion';
+  const className = /*#__PURE__*/ css({
+    color: 'red',
+    background: 'yellow',
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnZW1vdGlvbidcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNsYXNzTmFtZT17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  export class SimpleComponent extends React.PureComponent {
+    render() {
+      return (<div className={className}>
+      <span>hello</span>
+    </div>);
+    }
+  }
+  ReactDOM.render(<SimpleComponent />, document.querySelector('#app'));
+  
+
+`;
+
 exports[`should transform import-css.tsx with default configs 1`] = `
 
 File: import-css.tsx

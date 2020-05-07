@@ -142,3 +142,32 @@ module.exports = {
 }
 
 ```
+
+for customized exported(re-exported) styled
+
+```ts
+interface CustomModule {
+  // module name used in import statement
+  moduleName: string
+  // `true` if you may import libs from 'my-emotion/subpath'
+  includesSubPath?: boolean
+  // all available names exported from custom module
+  exportedNames: string[]
+  // we may do some additional work on styled function, so if styled is reexport, you should specify it here
+  styledName?: string
+  // has default export
+  hasDefaultExport?: boolean
+}
+
+createEmotionPlugin({
+  ...otherConfig,
+  customModules: [
+    {
+      moduleName: 'my-emotion',
+      includesSubPath: true,
+      exportedNames: ['myStyled', 'myCss']
+      styledName: 'myStyled',
+    }
+  ]
+})
+```

@@ -7,23 +7,43 @@ import findRoot from 'find-root'
 
 const hashString = require('@emotion/hash').default
 
+interface ModuleConfig {
+  moduleName: string
+  includesSubPath?: boolean
+  exportedNames: string[]
+  styledName?: string
+  hasDefaultExport?: boolean
+}
+
+interface ImportInfo extends ModuleConfig {
+  name: string
+  type: 'namedImport' | 'namespaceImport' | 'defaultImport'
+}
+
 export interface Options {
   sourcemap?: boolean
   autoLabel?: boolean
   labelFormat?: string
   autoInject?: boolean
-  customStyledModuleName?: string
+  customModules?: ModuleConfig[]
 }
 
-export interface ImportInfos {
-  name: string
-  type: 'namedImport' | 'namespaceImport' | 'defaultImport'
-  moduleName: string
-}
-
-const hasDefaultExports = ['@emotion/styled']
-const libraries = ['@emotion/styled', 'emotion', '@emotion/core']
-const functions = ['css', 'keyframes', 'injectGlobal', 'merge']
+const defaultEmotionModules: ModuleConfig[] = [
+  {
+    moduleName: 'emotion',
+    exportedNames: ['css', 'keyframes', 'injectGlobal', 'cx', 'merge'],
+  },
+  {
+    moduleName: '@emotion/styled',
+    exportedNames: ['styled'],
+    hasDefaultExport: true,
+    styledName: 'styled',
+  },
+  {
+    moduleName: '@emotion/core',
+    exportedNames: ['css'],
+  },
+]
 
 const defaultOptions: Options = {
   sourcemap: true,
@@ -57,12 +77,85 @@ const createImportJSXAst = memoize((propertyName: string | undefined) => {
   )
 })
 
-export const createEmotionPlugin = (options?: Options) => {
-  const notNullOptions = options
-    ? { ...defaultOptions, ...options }
-    : { ...defaultOptions }
+export const createEmotionPlugin = (pluginOptions?: Options) => {
+  const options = { ...defaultOptions, ...pluginOptions }
+  const modules = new Map(
+    defaultEmotionModules
+      .concat(options.customModules || [])
+      .map((m) => [m.moduleName, m]),
+  )
+
+  function getImportCalls(
+    importDeclarationNode: ts.ImportDeclaration,
+    compilerOptions: ts.CompilerOptions,
+  ) {
+    const importCalls: ImportInfo[] = []
+    const moduleName = (<ts.StringLiteral>importDeclarationNode.moduleSpecifier)
+      .text
+    if (!importDeclarationNode.importClause) {
+      return importCalls
+    }
+    const { name, namedBindings } = importDeclarationNode.importClause!
+    for (const moduleInfo of modules.values()) {
+      if (
+        moduleInfo.moduleName === moduleName ||
+        (moduleInfo.includesSubPath &&
+          moduleName.includes(moduleInfo.moduleName + '/'))
+      ) {
+        // import lib from 'lib'
+        if (name) {
+          if (moduleInfo.hasDefaultExport) {
+            importCalls.push({
+              name: name.text,
+              type: 'defaultImport',
+              ...moduleInfo,
+            })
+          } else if (compilerOptions.allowSyntheticDefaultImports) {
+            // treat it as import * as emotion from 'emotion'
+            importCalls.push({
+              name: name.text,
+              type: 'namespaceImport',
+              ...moduleInfo,
+            })
+          }
+        }
+
+        if (namedBindings) {
+          // import { xxx } from 'lib'
+          if (ts.isNamedImports(namedBindings)) {
+            namedBindings.elements.forEach((node) => {
+              // import { default as lib, a as alias, b } from 'lib'
+              if (
+                // propertyName's existence means alias
+                node.propertyName
+                  ? moduleInfo.exportedNames.includes(node.propertyName.text) ||
+                    (node.propertyName.text === 'default' &&
+                      moduleInfo.hasDefaultExport)
+                  : moduleInfo.exportedNames.includes(node.name.text)
+              ) {
+                importCalls.push({
+                  name: node.name.text,
+                  type: 'namedImport',
+                  ...moduleInfo,
+                })
+              }
+            })
+          } else if (ts.isNamespaceImport(namedBindings)) {
+            // import * as xxx from 'lib'
+            importCalls.push({
+              name: namedBindings.name!.text,
+              type: 'namespaceImport',
+              ...moduleInfo,
+            })
+          }
+        }
+      }
+    }
+    return importCalls
+  }
+
   const transformer: ts.TransformerFactory<ts.SourceFile> = (context) => {
-    let importCalls: ImportInfos[] = []
+    let importCalls: ImportInfo[] = []
     const compilerOptions = context.getCompilerOptions()
     let sourcemapGenerator: SourceMapGenerator
     let emotionTargetClassNameCount = 0
@@ -78,7 +171,7 @@ export const createEmotionPlugin = (options?: Options) => {
         // insert import { jsx [as jsxFactory] } from '@emotion/core' behind the react import declaration
         if (
           !inserted &&
-          notNullOptions.autoInject &&
+          options.autoInject &&
           (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
         ) {
           inserted = true
@@ -87,7 +180,7 @@ export const createEmotionPlugin = (options?: Options) => {
         return node
       }
 
-      if (notNullOptions.autoLabel || notNullOptions.sourcemap) {
+      if (options.autoLabel || options.sourcemap) {
         if (ts.isCallExpression(node)) {
           let { expression } = node
           if (
@@ -100,19 +193,21 @@ export const createEmotionPlugin = (options?: Options) => {
               : (expression as ts.CallExpression | ts.PropertyAccessExpression)
             let transformedNode = node
             let updateCallFunction = () => transformedNode
+            // styled.div({}) => styled('div')({})
             if (ts.isPropertyAccessExpression(expression)) {
-              const info = importCalls.find(
-                (importInfo) =>
-                  importInfo.name ===
-                  ((expression as ts.PropertyAccessExpression)
-                    .expression as ts.Identifier).text,
-              )
-              if (
-                info &&
-                (info.moduleName === '@emotion/styled' ||
-                  (notNullOptions.customStyledModuleName != undefined &&
-                    notNullOptions.customStyledModuleName === info.moduleName))
-              ) {
+              const info = importCalls.find((importInfo) => {
+                const expr = (expression as ts.PropertyAccessExpression)
+                  .expression
+                return (
+                  importInfo.styledName ===
+                  (ts.isIdentifier(expr)
+                    ? expr.text
+                    : ts.isPropertyAccessExpression(expr)
+                    ? expr.name.text
+                    : '')
+                )
+              })
+              if (info) {
                 expression = ts.createCall(
                   expression.expression,
                   [],
@@ -123,7 +218,7 @@ export const createEmotionPlugin = (options?: Options) => {
             const exp = ts.isCallExpression(expression) ? expression : null
             if (exp) {
               updateCallFunction = () => {
-                if (exp.arguments.length === 1) {
+                if (exp.arguments.length >= 1) {
                   const filename = sourceFile.fileName
                   let moduleName = ''
                   let rootPath = filename
@@ -152,22 +247,28 @@ export const createEmotionPlugin = (options?: Options) => {
                   const stableClassName = `e${hashArray(
                     stuffToHash,
                   )}${positionInFile}`
+                  const [el, opts] = exp.arguments
+                  const targetAssignment = ts.createPropertyAssignment(
+                    ts.createIdentifier('target'),
+                    ts.createStringLiteral(stableClassName),
+                  )
+                  const args = [el]
+                  args.push(
+                    ts.createObjectLiteral(
+                      opts && ts.isObjectLiteralExpression(opts)
+                        ? opts.properties.concat(targetAssignment)
+                        : [targetAssignment],
+                      true,
+                    ),
+                  )
+
                   const updatedCall = ts.updateCall(
                     exp,
                     exp.expression,
                     exp.typeArguments,
-                    exp.arguments.concat([
-                      ts.createObjectLiteral(
-                        [
-                          ts.createPropertyAssignment(
-                            ts.createIdentifier('target'),
-                            ts.createStringLiteral(stableClassName),
-                          ),
-                        ],
-                        true,
-                      ),
-                    ]),
+                    args,
                   )
+
                   return ts.updateCall(
                     transformedNode,
                     updatedCall,
@@ -192,88 +293,73 @@ export const createEmotionPlugin = (options?: Options) => {
                       (subExpression.expression as ts.Identifier).text,
                   )
               if (importedInfo) {
-                const propertyToAccess =
-                  importedInfo.type === 'namespaceImport'
-                    ? (
-                        (expression as ts.PropertyAccessExpression).name ||
-                        (subExpression as ts.PropertyAccessExpression).name
-                      ).text
-                    : ''
-                const isEmotionCall =
-                  (importedInfo.type === 'namespaceImport' &&
-                    (propertyToAccess === 'default' ||
-                      functions.includes(propertyToAccess))) ||
-                  importedInfo.type !== 'namespaceImport'
-
-                if (isEmotionCall) {
-                  if (notNullOptions.autoLabel) {
-                    const rawPath = sourceFile.fileName
-                    const localNameNode = (node.parent as ts.VariableDeclaration)
-                      .name
-                    if (localNameNode && ts.isIdentifier(localNameNode)) {
-                      const local = localNameNode.text
-                      const fileName = basename(rawPath, extname(rawPath))
-                      transformedNode = ts.updateCall(
-                        transformedNode,
-                        transformedNode.expression,
-                        transformedNode.typeArguments,
-                        transformedNode.arguments.concat([
-                          ts.createStringLiteral(
-                            `label:${notNullOptions
-                              .labelFormat!.replace('[local]', local)
-                              .replace('[filename]', fileName)};`,
-                          ),
-                        ]),
-                      )
-                    }
-                  }
-                  if (
-                    notNullOptions.sourcemap &&
-                    process.env.NODE_ENV !== 'production'
-                  ) {
-                    const sourceFileNode = node.getSourceFile()
-                    const lineAndCharacter = ts.getLineAndCharacterOfPosition(
-                      sourceFileNode,
-                      node.pos,
-                    )
-                    const sourceFileName = relative(
-                      process.cwd(),
-                      sourceFileNode.fileName,
-                    )
-                    sourcemapGenerator.addMapping({
-                      generated: {
-                        line: 1,
-                        column: 0,
-                      },
-                      source: sourceFileName,
-                      original: {
-                        line: lineAndCharacter.line + 1,
-                        column: lineAndCharacter.character + 1,
-                      },
-                    })
-                    sourcemapGenerator.setSourceContent(
-                      sourceFileName,
-                      sourceFileNode.text,
-                    )
-                    const comment = convert
-                      .fromObject(sourcemapGenerator)
-                      .toComment({ multiline: true })
+                if (options.autoLabel) {
+                  const rawPath = sourceFile.fileName
+                  const localNameNode = (node.parent as ts.VariableDeclaration)
+                    .name
+                  if (localNameNode && ts.isIdentifier(localNameNode)) {
+                    const local = localNameNode.text
+                    const fileName = basename(rawPath, extname(rawPath))
                     transformedNode = ts.updateCall(
                       transformedNode,
                       transformedNode.expression,
                       transformedNode.typeArguments,
                       transformedNode.arguments.concat([
-                        ts.createStringLiteral(comment),
+                        ts.createStringLiteral(
+                          `label:${options
+                            .labelFormat!.replace('[local]', local)
+                            .replace('[filename]', fileName)};`,
+                        ),
                       ]),
                     )
                   }
-                  transformedNode = ts.addSyntheticLeadingComment(
-                    transformedNode,
-                    ts.SyntaxKind.MultiLineCommentTrivia,
-                    '#__PURE__',
-                  )
-                  return updateCallFunction()
                 }
+                if (
+                  options.sourcemap &&
+                  process.env.NODE_ENV !== 'production'
+                ) {
+                  const sourceFileNode = node.getSourceFile()
+                  const lineAndCharacter = ts.getLineAndCharacterOfPosition(
+                    sourceFileNode,
+                    node.pos,
+                  )
+                  const sourceFileName = relative(
+                    process.cwd(),
+                    sourceFileNode.fileName,
+                  )
+                  sourcemapGenerator.addMapping({
+                    generated: {
+                      line: 1,
+                      column: 0,
+                    },
+                    source: sourceFileName,
+                    original: {
+                      line: lineAndCharacter.line + 1,
+                      column: lineAndCharacter.character + 1,
+                    },
+                  })
+                  sourcemapGenerator.setSourceContent(
+                    sourceFileName,
+                    sourceFileNode.text,
+                  )
+                  const comment = convert
+                    .fromObject(sourcemapGenerator)
+                    .toComment({ multiline: true })
+                  transformedNode = ts.updateCall(
+                    transformedNode,
+                    transformedNode.expression,
+                    transformedNode.typeArguments,
+                    transformedNode.arguments.concat([
+                      ts.createStringLiteral(comment),
+                    ]),
+                  )
+                }
+                transformedNode = ts.addSyntheticLeadingComment(
+                  transformedNode,
+                  ts.SyntaxKind.MultiLineCommentTrivia,
+                  '#__PURE__',
+                )
+                return updateCallFunction()
               }
             }
           }
@@ -294,89 +380,4 @@ export const createEmotionPlugin = (options?: Options) => {
     }
   }
   return transformer
-}
-
-function getImportCalls(
-  importDeclarationNode: ts.ImportDeclaration,
-  compilerOptions: ts.CompilerOptions,
-) {
-  const importCalls: ImportInfos[] = []
-  const moduleName = (<ts.StringLiteral>importDeclarationNode.moduleSpecifier)
-    .text
-  if (!importDeclarationNode.importClause) {
-    return importCalls
-  }
-  const { name, namedBindings } = importDeclarationNode.importClause!
-  if (libraries.includes(moduleName)) {
-    if (name) {
-      // import emotion from 'emotion'
-      // treat it as import * as emotion from 'emotion'
-      if (
-        moduleName === 'emotion' &&
-        compilerOptions.allowSyntheticDefaultImports
-      ) {
-        importCalls.push({
-          name: name.text,
-          type: 'namespaceImport',
-          moduleName,
-        })
-      } else if (hasDefaultExports.includes(moduleName)) {
-        importCalls.push({
-          name: name.text,
-          type: 'defaultImport',
-          moduleName,
-        })
-      }
-    }
-    if (namedBindings) {
-      if (ts.isNamedImports(namedBindings)) {
-        namedBindings.forEachChild((node) => {
-          // import { default as styled } from '@emotion/styled'
-          // push styled into importCalls
-          if (
-            hasDefaultExports.includes(moduleName) &&
-            (node as ts.ImportSpecifier).propertyName &&
-            (node as ts.ImportSpecifier).propertyName!.text === 'default'
-          ) {
-            importCalls.push({
-              name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport',
-              moduleName,
-            })
-          }
-          // import { css as emotionCss } from 'lib in libraries'
-          // push emotionCss into importCalls
-          if (
-            (node as ts.ImportSpecifier).propertyName &&
-            functions.includes((node as ts.ImportSpecifier).propertyName!.text)
-          ) {
-            importCalls.push({
-              name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport',
-              moduleName,
-            })
-          }
-          // import { css } from 'lib in libraries'
-          // push css into importCalls
-          if (
-            !(node as ts.ImportSpecifier).propertyName &&
-            functions.includes((node as ts.ImportSpecifier).name!.text)
-          ) {
-            importCalls.push({
-              name: (node as ts.ImportSpecifier).name!.text,
-              type: 'namedImport',
-              moduleName,
-            })
-          }
-        })
-      } else {
-        importCalls.push({
-          name: namedBindings.name!.text,
-          type: 'namespaceImport',
-          moduleName,
-        })
-      }
-    }
-  }
-  return importCalls
 }

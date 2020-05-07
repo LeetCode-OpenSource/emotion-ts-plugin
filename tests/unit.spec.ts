@@ -116,4 +116,17 @@ fixtures
       expect(result).toMatchSpecificSnapshot(pathToSnap)
       process.env.NODE_ENV = originalEnv
     })
+
+    it(`should transform ${filename} with custom module`, () => {
+      const result = transform({
+        customModules: [
+          {
+            moduleName: 'my-emotion',
+            exportedNames: ['myStyled', 'myCss'],
+            styledName: 'myStyled',
+          },
+        ],
+      })
+      expect(result).toMatchSpecificSnapshot(pathToSnap)
+    })
   })

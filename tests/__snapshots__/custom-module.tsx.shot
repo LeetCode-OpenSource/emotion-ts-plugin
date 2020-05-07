@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not add sourcemap to custom-module.tsx if NODE_ENV === 'production' 1`] = `
+
+File: custom-module.tsx
+TypeScript before transform:
+  import { myStyled, myCss } from 'my-emotion'
+  
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  })
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { myStyled, myCss } from 'my-emotion';
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  });
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  });
+  
+
+`;
+
+exports[`should transform custom-module.tsx with autoLabel false 1`] = `
+
+File: custom-module.tsx
+TypeScript before transform:
+  import { myStyled, myCss } from 'my-emotion'
+  
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  })
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { myStyled, myCss } from 'my-emotion';
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  });
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  });
+  
+
+`;
+
+exports[`should transform custom-module.tsx with custom module 1`] = `
+
+File: custom-module.tsx
+TypeScript before transform:
+  import { myStyled, myCss } from 'my-emotion'
+  
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  })
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { myStyled, myCss } from 'my-emotion';
+  export const className = /*#__PURE__*/ myCss({
+    color: 'red',
+    background: 'yellow',
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2N1c3RvbS1tb2R1bGUudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUV5QiIsImZpbGUiOiJjdXN0b20tbW9kdWxlLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBteVN0eWxlZCwgbXlDc3MgfSBmcm9tICdteS1lbW90aW9uJ1xuXG5leHBvcnQgY29uc3QgY2xhc3NOYW1lID0gbXlDc3Moe1xuICBjb2xvcjogJ3JlZCcsXG4gIGJhY2tncm91bmQ6ICd5ZWxsb3cnLFxufSlcblxuZXhwb3J0IGNvbnN0IFN0eWxlZENvbXBvbmVudCA9IG15U3R5bGVkLmRpdih7XG4gIGNvbG9yOiAnYmx1ZScsXG59KVxuIl19 */");
+  export const StyledComponent = /*#__PURE__*/ myStyled("div", {
+    target: "eiefrsv0"
+  })({
+    color: 'blue',
+  }, "label:StyledComponent;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2N1c3RvbS1tb2R1bGUudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUV5QixBQUtNIiwiZmlsZSI6ImN1c3RvbS1tb2R1bGUudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IG15U3R5bGVkLCBteUNzcyB9IGZyb20gJ215LWVtb3Rpb24nXG5cbmV4cG9ydCBjb25zdCBjbGFzc05hbWUgPSBteUNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY29uc3QgU3R5bGVkQ29tcG9uZW50ID0gbXlTdHlsZWQuZGl2KHtcbiAgY29sb3I6ICdibHVlJyxcbn0pXG4iXX0= */");
+  
+
+`;
+
+exports[`should transform custom-module.tsx with default configs 1`] = `
+
+File: custom-module.tsx
+TypeScript before transform:
+  import { myStyled, myCss } from 'my-emotion'
+  
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  })
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { myStyled, myCss } from 'my-emotion';
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  });
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  });
+  
+
+`;
+
+exports[`should transform custom-module.tsx with sourcemap false 1`] = `
+
+File: custom-module.tsx
+TypeScript before transform:
+  import { myStyled, myCss } from 'my-emotion'
+  
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  })
+  
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  })
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { myStyled, myCss } from 'my-emotion';
+  export const className = myCss({
+    color: 'red',
+    background: 'yellow',
+  });
+  export const StyledComponent = myStyled.div({
+    color: 'blue',
+  });
+  
+
+`;

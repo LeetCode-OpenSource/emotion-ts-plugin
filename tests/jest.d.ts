@@ -5,3 +5,5 @@ declare namespace jest {
 }
 
 declare module 'jest-specific-snapshot'
+
+declare module 'my-emotion'
