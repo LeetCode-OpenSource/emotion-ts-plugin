@@ -1,6 +1,6 @@
 {
   "name": "emotion-ts-plugin",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "TypeScript Emotion Plugin",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -86,8 +86,7 @@
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "tslint -c tslint.json --fix",
-      "git add"
+      "tslint -c tslint.json --fix"
     ]
   },
   "husky": {
