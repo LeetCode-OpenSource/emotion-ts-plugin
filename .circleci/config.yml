@@ -66,4 +66,4 @@ workflows:
             tags:
               only: /.*/
             branches:
-              only: master
+              only: /^(master|v11)$/
