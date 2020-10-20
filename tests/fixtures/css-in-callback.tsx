@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import styled from '@emotion/styled'
 
 const styles = (props: any) =>

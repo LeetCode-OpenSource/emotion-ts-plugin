@@ -15,14 +15,14 @@
     "test": "jest --no-cache --ci"
   },
   "devDependencies": {
-    "@emotion/core": "^10.0.22",
-    "@emotion/styled": "^10.0.23",
+    "@emotion/css": "^11.0.0-rc.0",
+    "@emotion/react": "^11.0.0-rc.0",
+    "@emotion/styled": "^11.0.0-rc.0",
     "@types/convert-source-map": "^1.5.1",
     "@types/find-root": "^1.1.1",
     "@types/jest": "^26.0.0",
     "@types/lodash": "^4.14.146",
     "@types/react-dom": "^16.9.4",
-    "emotion": "^10.0.23",
     "html-webpack-plugin": "^4.0.1",
     "husky": "^4.0.0",
     "jest": "^25.1.0",

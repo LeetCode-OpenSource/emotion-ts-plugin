@@ -121,7 +121,7 @@ module.exports = {
             })],   
           }),
           compilerOptions: {
-            // set jsx pragma to jsx or alias which is from the @emotion/core package to enable css property in jsx component
+            // set jsx pragma to jsx or alias which is from the @emotion/react package to enable css property in jsx component
             jsxFactory: "jsx"
           }
         },

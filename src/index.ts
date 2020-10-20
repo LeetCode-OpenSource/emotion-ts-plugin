@@ -30,7 +30,7 @@ export interface Options {
 
 const defaultEmotionModules: ModuleConfig[] = [
   {
-    moduleName: 'emotion',
+    moduleName: '@emotion/css',
     exportedNames: ['css', 'keyframes', 'injectGlobal', 'cx', 'merge'],
   },
   {
@@ -40,7 +40,7 @@ const defaultEmotionModules: ModuleConfig[] = [
     styledName: 'styled',
   },
   {
-    moduleName: '@emotion/core',
+    moduleName: '@emotion/react',
     exportedNames: ['css'],
   },
 ]
@@ -67,7 +67,7 @@ const createImportJSXAst = memoize((propertyName: string | undefined) => {
         : ts.createImportSpecifier(undefined, ts.createIdentifier('jsx')),
     ]),
   )
-  const moduleSpecifier = ts.createStringLiteral('@emotion/core')
+  const moduleSpecifier = ts.createStringLiteral('@emotion/react')
 
   return ts.createImportDeclaration(
     undefined,
@@ -111,7 +111,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
               ...moduleInfo,
             })
           } else if (compilerOptions.allowSyntheticDefaultImports) {
-            // treat it as import * as emotion from 'emotion'
+            // treat it as import * as emotion from '@emotion/css'
             importCalls.push({
               name: name.text,
               type: 'namespaceImport',
@@ -168,7 +168,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
       }
       if (ts.isImportDeclaration(node)) {
         importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
-        // insert import { jsx [as jsxFactory] } from '@emotion/core' behind the react import declaration
+        // insert import { jsx [as jsxFactory] } from '@emotion/react' behind the react import declaration
         if (
           !inserted &&
           options.autoInject &&
