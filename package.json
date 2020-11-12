@@ -22,7 +22,7 @@
     "@types/jest": "^26.0.0",
     "@types/lodash": "^4.14.146",
     "@types/react-dom": "^16.9.4",
-    "emotion": "^10.0.23",
+    "emotion": "^11.0.0",
     "html-webpack-plugin": "^4.0.1",
     "husky": "^4.0.0",
     "jest": "^26.6.0",
