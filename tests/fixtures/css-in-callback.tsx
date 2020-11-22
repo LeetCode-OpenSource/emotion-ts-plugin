@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { css } from 'emotion'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 const styles = (props: any) =>
@@ -12,9 +12,10 @@ const styles = (props: any) =>
 
 const Container = styled('button')`
   ${styles}
-  ${() => css({
-    background: 'red',
-  })}
+  ${() =>
+    css({
+      background: 'red',
+    })}
 `
 export class SimpleComponent extends React.PureComponent {
   render() {

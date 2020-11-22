@@ -6,7 +6,7 @@ File: import-css.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { css } from 'emotion'
+  import { css } from '@emotion/react'
   
   const className = css({
     color: 'red',
@@ -16,7 +16,7 @@ TypeScript before transform:
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (
-        <div className={className}>
+        <div css={className}>
           <span>hello</span>
         </div>
       )
@@ -30,17 +30,17 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/core";
+  import { jsx } from "@emotion/react";
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { css } from 'emotion';
+  import { css } from '@emotion/react';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
   }, "label:className;");
   export class SimpleComponent extends React.PureComponent {
     render() {
-      return (<div className={className}>
+      return (<div css={className}>
       <span>hello</span>
     </div>);
     }
@@ -56,7 +56,7 @@ File: import-css.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { css } from 'emotion'
+  import { css } from '@emotion/react'
   
   const className = css({
     color: 'red',
@@ -66,7 +66,7 @@ TypeScript before transform:
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (
-        <div className={className}>
+        <div css={className}>
           <span>hello</span>
         </div>
       )
@@ -80,17 +80,17 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/core";
+  import { jsx } from "@emotion/react";
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { css } from 'emotion';
+  import { css } from '@emotion/react';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnZW1vdGlvbidcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNsYXNzTmFtZT17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vcmVhY3QnXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
   export class SimpleComponent extends React.PureComponent {
     render() {
-      return (<div className={className}>
+      return (<div css={className}>
       <span>hello</span>
     </div>);
     }
@@ -106,7 +106,7 @@ File: import-css.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { css } from 'emotion'
+  import { css } from '@emotion/react'
   
   const className = css({
     color: 'red',
@@ -116,7 +116,7 @@ TypeScript before transform:
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (
-        <div className={className}>
+        <div css={className}>
           <span>hello</span>
         </div>
       )
@@ -130,17 +130,17 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/core";
+  import { jsx } from "@emotion/react";
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { css } from 'emotion';
+  import { css } from '@emotion/react';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnZW1vdGlvbidcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNsYXNzTmFtZT17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vcmVhY3QnXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
   export class SimpleComponent extends React.PureComponent {
     render() {
-      return (<div className={className}>
+      return (<div css={className}>
       <span>hello</span>
     </div>);
     }
@@ -156,7 +156,7 @@ File: import-css.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { css } from 'emotion'
+  import { css } from '@emotion/react'
   
   const className = css({
     color: 'red',
@@ -166,7 +166,7 @@ TypeScript before transform:
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (
-        <div className={className}>
+        <div css={className}>
           <span>hello</span>
         </div>
       )
@@ -180,17 +180,17 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/core";
+  import { jsx } from "@emotion/react";
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { css } from 'emotion';
+  import { css } from '@emotion/react';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnZW1vdGlvbidcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBSZWFjdC5QdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2IGNsYXNzTmFtZT17Y2xhc3NOYW1lfT5cbiAgICAgICAgPHNwYW4+aGVsbG88L3NwYW4+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn1cblxuUmVhY3RET00ucmVuZGVyKDxTaW1wbGVDb21wb25lbnQgLz4sIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNhcHAnKSlcbiJdfQ== */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2ltcG9ydC1jc3MudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlrQiIsImZpbGUiOiJpbXBvcnQtY3NzLnRzeCIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJ1xuaW1wb3J0IHsgY3NzIH0gZnJvbSAnQGVtb3Rpb24vcmVhY3QnXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUmVhY3QuUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjc3M9e2NsYXNzTmFtZX0+XG4gICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
   export class SimpleComponent extends React.PureComponent {
     render() {
-      return (<div className={className}>
+      return (<div css={className}>
       <span>hello</span>
     </div>);
     }
@@ -206,7 +206,7 @@ File: import-css.tsx
 TypeScript before transform:
   import React from 'react'
   import ReactDOM from 'react-dom'
-  import { css } from 'emotion'
+  import { css } from '@emotion/react'
   
   const className = css({
     color: 'red',
@@ -216,7 +216,7 @@ TypeScript before transform:
   export class SimpleComponent extends React.PureComponent {
     render() {
       return (
-        <div className={className}>
+        <div css={className}>
           <span>hello</span>
         </div>
       )
@@ -230,17 +230,17 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/core";
+  import { jsx } from "@emotion/react";
   import React from 'react';
   import ReactDOM from 'react-dom';
-  import { css } from 'emotion';
+  import { css } from '@emotion/react';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
   }, "label:className;");
   export class SimpleComponent extends React.PureComponent {
     render() {
-      return (<div className={className}>
+      return (<div css={className}>
       <span>hello</span>
     </div>);
     }

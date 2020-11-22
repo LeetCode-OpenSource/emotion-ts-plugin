@@ -26,13 +26,11 @@ export interface Options {
   labelFormat?: string
   autoInject?: boolean
   customModules?: ModuleConfig[]
+  jsxFactory?: string
+  jsxImportSource?: string
 }
 
 const defaultEmotionModules: ModuleConfig[] = [
-  {
-    moduleName: 'emotion',
-    exportedNames: ['css', 'keyframes', 'injectGlobal', 'cx', 'merge'],
-  },
   {
     moduleName: '@emotion/styled',
     exportedNames: ['styled'],
@@ -40,7 +38,7 @@ const defaultEmotionModules: ModuleConfig[] = [
     styledName: 'styled',
   },
   {
-    moduleName: '@emotion/core',
+    moduleName: '@emotion/react',
     exportedNames: ['css'],
   },
 ]
@@ -56,20 +54,24 @@ const getPackageRootPath = memoize((filename: string) => findRoot(filename))
 const hashArray = (arr: Array<string>) => hashString(arr.join(''))
 
 const createImportJSXAst = memoize((propertyName: string | undefined) => {
-  const importClause = ts.createImportClause(
+  const importClause = ts.factory.createImportClause(
+    false,
     undefined,
-    ts.createNamedImports([
+    ts.factory.createNamedImports([
       propertyName
-        ? ts.createImportSpecifier(
-            ts.createIdentifier('jsx'),
-            ts.createIdentifier(propertyName),
+        ? ts.factory.createImportSpecifier(
+            ts.factory.createIdentifier('jsx'),
+            ts.factory.createIdentifier(propertyName),
           )
-        : ts.createImportSpecifier(undefined, ts.createIdentifier('jsx')),
+        : ts.factory.createImportSpecifier(
+            undefined,
+            ts.factory.createIdentifier('jsx'),
+          ),
     ]),
   )
-  const moduleSpecifier = ts.createStringLiteral('@emotion/core')
+  const moduleSpecifier = ts.factory.createStringLiteral('@emotion/react')
 
-  return ts.createImportDeclaration(
+  return ts.factory.createImportDeclaration(
     undefined,
     undefined,
     importClause,
@@ -162,20 +164,21 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
     let sourceFile: ts.SourceFile
     let inserted = false
     const visitor: ts.Visitor = (node) => {
-      if (ts.isSourceFile(node)) {
-        inserted = false
-        return ts.visitEachChild(node, visitor, context)
-      }
       if (ts.isImportDeclaration(node)) {
         importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
-        // insert import { jsx [as jsxFactory] } from '@emotion/core' behind the react import declaration
+        // insert import { jsx [as jsxFactory] } from '@emotion/react' behind the react import declaration
         if (
           !inserted &&
           options.autoInject &&
           (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
         ) {
           inserted = true
-          return [createImportJSXAst(compilerOptions.jsxFactory), node]
+          return [
+            createImportJSXAst(
+              options?.jsxFactory ?? compilerOptions.jsxFactory,
+            ),
+            node,
+          ]
         }
         return node
       }
@@ -208,10 +211,10 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
                 )
               })
               if (info) {
-                expression = ts.createCall(
+                expression = ts.factory.createCallExpression(
                   expression.expression,
                   [],
-                  [ts.createStringLiteral(expression.name.text)],
+                  [ts.factory.createStringLiteral(expression.name.text)],
                 )
               }
             }
@@ -248,13 +251,13 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
                     stuffToHash,
                   )}${positionInFile}`
                   const [el, opts] = exp.arguments
-                  const targetAssignment = ts.createPropertyAssignment(
-                    ts.createIdentifier('target'),
-                    ts.createStringLiteral(stableClassName),
+                  const targetAssignment = ts.factory.createPropertyAssignment(
+                    ts.factory.createIdentifier('target'),
+                    ts.factory.createStringLiteral(stableClassName),
                   )
                   const args = [el]
                   args.push(
-                    ts.createObjectLiteral(
+                    ts.factory.createObjectLiteralExpression(
                       opts && ts.isObjectLiteralExpression(opts)
                         ? opts.properties.concat(targetAssignment)
                         : [targetAssignment],
@@ -262,14 +265,14 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
                     ),
                   )
 
-                  const updatedCall = ts.updateCall(
+                  const updatedCall = ts.factory.updateCallExpression(
                     exp,
                     exp.expression,
                     exp.typeArguments,
                     args,
                   )
 
-                  return ts.updateCall(
+                  return ts.factory.updateCallExpression(
                     transformedNode,
                     updatedCall,
                     transformedNode.typeArguments,
@@ -300,12 +303,12 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
                   if (localNameNode && ts.isIdentifier(localNameNode)) {
                     const local = localNameNode.text
                     const fileName = basename(rawPath, extname(rawPath))
-                    transformedNode = ts.updateCall(
+                    transformedNode = ts.factory.updateCallExpression(
                       transformedNode,
                       transformedNode.expression,
                       transformedNode.typeArguments,
                       transformedNode.arguments.concat([
-                        ts.createStringLiteral(
+                        ts.factory.createStringLiteral(
                           `label:${options
                             .labelFormat!.replace('[local]', local)
                             .replace('[filename]', fileName)};`,
@@ -345,12 +348,12 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
                   const comment = convert
                     .fromObject(sourcemapGenerator)
                     .toComment({ multiline: true })
-                  transformedNode = ts.updateCall(
+                  transformedNode = ts.factory.updateCallExpression(
                     transformedNode,
                     transformedNode.expression,
                     transformedNode.typeArguments,
                     transformedNode.arguments.concat([
-                      ts.createStringLiteral(comment),
+                      ts.factory.createStringLiteral(comment),
                     ]),
                   )
                 }
@@ -375,7 +378,19 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
         sourceRoot: '',
       })
       const distNode = ts.visitNode(node, visitor)
+      if (inserted && options.jsxImportSource && distNode.statements.length) {
+        // fIXME
+        // typeScript private API https://github.com/microsoft/TypeScript/pull/39199/files#diff-1516c8349f7a625a2e4a2aa60f6bbe84e4b1a499128e8705d3087d893e01d367R5974
+        // @ts-expect-error
+        distNode.pragmas.set('jsximportsource', {
+          arguments: {
+            factory: options.jsxImportSource,
+          },
+        })
+      }
       importCalls = []
+      inserted = false
+      emotionTargetClassNameCount = 0
       return distNode
     }
   }

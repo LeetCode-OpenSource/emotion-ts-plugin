@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { css } from 'emotion'
+import { css } from '@emotion/react'
 
 const className = css({
   color: 'red',
@@ -10,7 +10,7 @@ const className = css({
 export class SimpleComponent extends React.PureComponent {
   render() {
     return (
-      <div className={className}>
+      <div css={className}>
         <span>hello</span>
       </div>
     )
