@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
 const className = css({
   color: 'red',

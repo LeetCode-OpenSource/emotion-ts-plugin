@@ -18,6 +18,10 @@ module.exports = {
 
   mode: 'development',
 
+  devServer: {
+    port: 1234,
+  },
+
   devtool: 'cheap-module-source-map',
 
   module: {
@@ -28,11 +32,15 @@ module.exports = {
         options: {
           transpileOnly: true,
           getCustomTransformers: () => ({
-            before: [createEmotionPlugin()],
+            before: [
+              createEmotionPlugin({
+                autoInject: true,
+                jsxImportSource: '@emotion/react',
+              }),
+            ],
           }),
           compilerOptions: {
             module: 'esnext',
-            jsxFactory: '___EmotionJSX',
           },
         },
         exclude: /node_modules/,

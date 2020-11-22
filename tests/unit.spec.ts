@@ -1,10 +1,10 @@
-import * as ts from 'typescript'
 import * as fs from 'fs'
 import { join } from 'path'
 
-import { createEmotionPlugin, Options } from '../src'
-
 import { addSerializer } from 'jest-specific-snapshot'
+import * as ts from 'typescript'
+
+import { createEmotionPlugin, Options } from '../src'
 
 const printer = ts.createPrinter()
 const baseDir = join(process.cwd(), 'tests', 'fixtures')
@@ -68,7 +68,7 @@ fixtures
     function transform(options?: Options): TransformBaseline {
       const emotion = createEmotionPlugin(options)
       const sourceFile = ts.createSourceFile(
-        join(baseDir, filename),
+        join(baseDir, `${filename}`),
         sourceCode,
         ts.ScriptTarget.ESNext,
         true,

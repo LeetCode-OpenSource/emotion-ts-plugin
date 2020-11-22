@@ -108,7 +108,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jsx|tsx|js|ts)$/,
+        test: /\.(j|t)sx?$/,
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
@@ -117,12 +117,19 @@ module.exports = {
               sourcemap: true,          
               autoLabel: true,
               labelFormat: '[local]',
-              autoInject: true,     //if the jsxFactory is set, should we auto insert the import statement
+              // if the jsxFactory is set, should we auto insert the import statement
+              autoInject: true,
+              // set for react@17 new jsx runtime
+              // only effect if `autoInject` is true
+              // set it in createEmotionPlugin options rather than in `tsconfig.json` will generate more optimized codes:
+              // import { jsx } from 'react/jsx-runtime' for files not using emotion
+              // import { jsx } from '@emotion/react/jsx-runtime' for files using emotion
+              jsxImportSource: "@emotion/react",
             })],   
           }),
           compilerOptions: {
-            // set jsx pragma to jsx or alias which is from the @emotion/core package to enable css property in jsx component
-            jsxFactory: "jsx"
+            // set jsx pragma to jsx or alias which is from the @emotion/react package to enable css property in jsx component
+            jsxFactory: "jsx",
           }
         },
         exclude: /node_modules/,

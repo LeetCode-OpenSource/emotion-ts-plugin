@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsxdev",
+    "jsxImportSource": "@emotion/react",
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "downlevelIteration": true,
@@ -20,16 +21,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "suppressExcessPropertyErrors": true,
     "forceConsistentCasingInFileNames": true,
-    "target": "ES5",
+    "target": "ES2018",
     "sourceMap": true,
     "lib": [
       "dom",
-      "dom.iterable",
-      "es5",
-      "es2015",
-      "es2016",
-      "es2017",
-      "esnext"
+      "dom.iterable"
     ]
   },
   "include": [
