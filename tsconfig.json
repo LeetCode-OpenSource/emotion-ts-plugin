@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsxdev",
+    "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "allowSyntheticDefaultImports": true,
     "declaration": true,

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auto insert jsx when css attribute used 1`] = `
+
+File: auto-import-test.tsx
+TypeScript before transform:
+  
+  export const Button = () => {
+    return <div css={{ '.btn-text': { color: 'red' } }} />
+  }  
+  
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+TypeScript after transform:
+  import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+  export const Button = () => {
+    return _jsx("div", { css: { '.btn-text': { color: 'red' } } }, void 0);
+  };
+  
+
+`;

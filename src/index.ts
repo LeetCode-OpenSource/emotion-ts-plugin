@@ -48,6 +48,7 @@ const defaultOptions: Options = {
   autoLabel: true,
   labelFormat: '[local]',
   autoInject: true,
+  jsxImportSource: '@emotion/react',
 }
 
 const getPackageRootPath = memoize((filename: string) => findRoot(filename))
@@ -157,7 +158,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
   }
 
   const transformer: ts.TransformerFactory<ts.SourceFile> = (context) => {
-    let importCalls: ImportInfo[] = []
+    const importCalls: ImportInfo[] = []
     const compilerOptions = context.getCompilerOptions()
     let sourcemapGenerator: SourceMapGenerator
     let emotionTargetClassNameCount = 0
@@ -165,11 +166,13 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
     let inserted = false
     const visitor: ts.Visitor = (node) => {
       if (ts.isImportDeclaration(node)) {
-        importCalls = importCalls.concat(getImportCalls(node, compilerOptions))
+        importCalls.push(...getImportCalls(node, compilerOptions))
         // insert import { jsx [as jsxFactory] } from '@emotion/react' behind the react import declaration
         if (
           !inserted &&
           options.autoInject &&
+          // only for jsx: 'react'
+          compilerOptions.jsx === ts.JsxEmit.React &&
           (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
         ) {
           inserted = true
@@ -369,6 +372,21 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
         }
       }
 
+      if (
+        ts.isJsxAttribute(node) &&
+        node.name.text === 'css' &&
+        (compilerOptions.jsx === ts.JsxEmit.ReactJSX ||
+          compilerOptions.jsx === ts.JsxEmit.ReactJSXDev) &&
+        !importCalls.find((info) => {
+          return (
+            info.moduleName === '@emotion/react' &&
+            info.exportedNames.includes('jsx')
+          )
+        })
+      ) {
+        inserted = true
+      }
+
       return ts.visitEachChild(node, visitor, context)
     }
     return (node) => {
@@ -388,7 +406,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
           },
         })
       }
-      importCalls = []
+      importCalls.length = 0
       inserted = false
       emotionTargetClassNameCount = 0
       return distNode
