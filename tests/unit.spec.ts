@@ -64,29 +64,7 @@ fixtures
   )
   .forEach((filename) => {
     const sourceCode = fs.readFileSync(join(baseDir, filename), 'utf-8')
-
-    function transform(options?: Options): TransformBaseline {
-      const emotion = createEmotionPlugin(options)
-      const sourceFile = ts.createSourceFile(
-        join(baseDir, `${filename}`),
-        sourceCode,
-        ts.ScriptTarget.ESNext,
-        true,
-      )
-      const [transformed] = ts.transform(
-        sourceFile,
-        [emotion],
-        compilerOptions,
-      ).transformed
-      return {
-        transformed: printer.printFile(transformed),
-        source: printer.printFile(sourceFile),
-        filename,
-        type: 'transform-baseline',
-        content: sourceCode,
-      }
-    }
-
+    const transform = transformFactory(filename, sourceCode)
     const pathToSnap = join(
       process.cwd(),
       'tests',
@@ -130,3 +108,63 @@ fixtures
       expect(result).toMatchSpecificSnapshot(pathToSnap)
     })
   })
+
+it('auto insert jsx when css attribute used', () => {
+  const sourceCode = `
+export const Button = () => {
+  return <div css={{ '.btn-text': { color: 'red' } }} />
+}  
+`
+  const { outputText } = ts.transpileModule(sourceCode, {
+    compilerOptions: {
+      target: ts.ScriptTarget.ES2018,
+      jsx: ts.JsxEmit.ReactJSX,
+      module: ts.ModuleKind.ESNext,
+    },
+    transformers: {
+      before: [
+        createEmotionPlugin({
+          autoInject: true,
+          jsxImportSource: '@emotion/react',
+        }),
+      ],
+    },
+  })
+  expect({
+    transformed: outputText,
+    source: sourceCode,
+    filename: 'auto-import-test.tsx',
+    type: 'transform-baseline',
+    content: sourceCode,
+  }).toMatchSpecificSnapshot(
+    join(process.cwd(), 'tests', '__snapshots__', `auto-import-test.shot`),
+  )
+})
+
+function transformFactory(
+  filename: string,
+  sourceCode: string,
+  additionalCompilerOptions: ts.CompilerOptions = {},
+): (options?: Options) => TransformBaseline {
+  return (options?: Options) => {
+    const emotion = createEmotionPlugin(options)
+    const sourceFile = ts.createSourceFile(
+      join(baseDir, filename),
+      sourceCode,
+      ts.ScriptTarget.ESNext,
+      true,
+    )
+    const [transformed] = ts.transform(sourceFile, [emotion], {
+      ...compilerOptions,
+      ...{ jsx: ts.JsxEmit.React, jsxImportSource: undefined },
+      ...additionalCompilerOptions,
+    }).transformed
+    return {
+      transformed: printer.printFile(transformed),
+      source: printer.printFile(sourceFile),
+      filename,
+      type: 'transform-baseline',
+      content: sourceCode,
+    }
+  }
+}
