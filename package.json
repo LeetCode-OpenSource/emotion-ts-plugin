@@ -17,6 +17,7 @@
   "devDependencies": {
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
+    "@swc-node/jest": "^1.1.0",
     "@types/convert-source-map": "^1.5.1",
     "@types/find-root": "^1.1.2",
     "@types/jest": "^26.0.15",
@@ -32,7 +33,6 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.11",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
@@ -53,14 +53,7 @@
     "lib/**"
   ],
   "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tests/tsconfig.json"
-      }
-    },
-    "transform": {
-      "^.+\\.ts?$": "ts-jest"
-    },
+    "preset": "@swc-node/jest",
     "moduleFileExtensions": [
       "ts",
       "tsx",
