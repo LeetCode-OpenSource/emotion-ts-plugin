@@ -4,10 +4,9 @@ exports[`should not add sourcemap to emotion-core-complex.tsx if NODE_ENV === 'p
 
 File: emotion-core-complex.tsx
 TypeScript before transform:
-  import React from 'react'
-  import { PureComponent } from 'react'
-  import ReactDOM from 'react-dom'
   import { css } from '@emotion/react'
+  import React, { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
   
   const className = css({
     color: 'red',
@@ -33,11 +32,10 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/react";
-  import React from 'react';
-  import { PureComponent } from 'react';
-  import ReactDOM from 'react-dom';
   import { css } from '@emotion/react';
+  import { jsx } from "@emotion/react";
+  import React, { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
@@ -60,10 +58,9 @@ exports[`should transform emotion-core-complex.tsx with autoLabel false 1`] = `
 
 File: emotion-core-complex.tsx
 TypeScript before transform:
-  import React from 'react'
-  import { PureComponent } from 'react'
-  import ReactDOM from 'react-dom'
   import { css } from '@emotion/react'
+  import React, { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
   
   const className = css({
     color: 'red',
@@ -89,15 +86,14 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/react";
-  import React from 'react';
-  import { PureComponent } from 'react';
-  import ReactDOM from 'react-dom';
   import { css } from '@emotion/react';
+  import { jsx } from "@emotion/react";
+  import React, { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCdcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBQdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UmVhY3QuRnJhZ21lbnQ+XG4gICAgICAgIDxkaXYgY3NzPXtjbGFzc05hbWV9PlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvUmVhY3QuRnJhZ21lbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  }, "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0J1xuaW1wb3J0IFJlYWN0LCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFJlYWN0LkZyYWdtZW50PlxuICAgICAgICA8ZGl2IGNzcz17Y2xhc3NOYW1lfT5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L1JlYWN0LkZyYWdtZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends PureComponent {
     render() {
       return (<React.Fragment>
@@ -116,10 +112,9 @@ exports[`should transform emotion-core-complex.tsx with custom module 1`] = `
 
 File: emotion-core-complex.tsx
 TypeScript before transform:
-  import React from 'react'
-  import { PureComponent } from 'react'
-  import ReactDOM from 'react-dom'
   import { css } from '@emotion/react'
+  import React, { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
   
   const className = css({
     color: 'red',
@@ -145,15 +140,14 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/react";
-  import React from 'react';
-  import { PureComponent } from 'react';
-  import ReactDOM from 'react-dom';
   import { css } from '@emotion/react';
+  import { jsx } from "@emotion/react";
+  import React, { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCdcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBQdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UmVhY3QuRnJhZ21lbnQ+XG4gICAgICAgIDxkaXYgY3NzPXtjbGFzc05hbWV9PlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvUmVhY3QuRnJhZ21lbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0J1xuaW1wb3J0IFJlYWN0LCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFJlYWN0LkZyYWdtZW50PlxuICAgICAgICA8ZGl2IGNzcz17Y2xhc3NOYW1lfT5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L1JlYWN0LkZyYWdtZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends PureComponent {
     render() {
       return (<React.Fragment>
@@ -172,10 +166,9 @@ exports[`should transform emotion-core-complex.tsx with default configs 1`] = `
 
 File: emotion-core-complex.tsx
 TypeScript before transform:
-  import React from 'react'
-  import { PureComponent } from 'react'
-  import ReactDOM from 'react-dom'
   import { css } from '@emotion/react'
+  import React, { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
   
   const className = css({
     color: 'red',
@@ -201,15 +194,14 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/react";
-  import React from 'react';
-  import { PureComponent } from 'react';
-  import ReactDOM from 'react-dom';
   import { css } from '@emotion/react';
+  import { jsx } from "@emotion/react";
+  import React, { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',
-  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCdcblxuY29uc3QgY2xhc3NOYW1lID0gY3NzKHtcbiAgY29sb3I6ICdyZWQnLFxuICBiYWNrZ3JvdW5kOiAneWVsbG93Jyxcbn0pXG5cbmV4cG9ydCBjbGFzcyBTaW1wbGVDb21wb25lbnQgZXh0ZW5kcyBQdXJlQ29tcG9uZW50IHtcbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8UmVhY3QuRnJhZ21lbnQ+XG4gICAgICAgIDxkaXYgY3NzPXtjbGFzc05hbWV9PlxuICAgICAgICAgIDxzcGFuPmhlbGxvPC9zcGFuPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvUmVhY3QuRnJhZ21lbnQ+XG4gICAgKVxuICB9XG59XG5cblJlYWN0RE9NLnJlbmRlcig8U2ltcGxlQ29tcG9uZW50IC8+LCBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjYXBwJykpXG4iXX0= */");
+  }, "label:className;", "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3RzL2ZpeHR1cmVzL2Vtb3Rpb24tY29yZS1jb21wbGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJa0IiLCJmaWxlIjoiZW1vdGlvbi1jb3JlLWNvbXBsZXgudHN4Iiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0J1xuaW1wb3J0IFJlYWN0LCB7IFB1cmVDb21wb25lbnQgfSBmcm9tICdyZWFjdCdcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nXG5cbmNvbnN0IGNsYXNzTmFtZSA9IGNzcyh7XG4gIGNvbG9yOiAncmVkJyxcbiAgYmFja2dyb3VuZDogJ3llbGxvdycsXG59KVxuXG5leHBvcnQgY2xhc3MgU2ltcGxlQ29tcG9uZW50IGV4dGVuZHMgUHVyZUNvbXBvbmVudCB7XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPFJlYWN0LkZyYWdtZW50PlxuICAgICAgICA8ZGl2IGNzcz17Y2xhc3NOYW1lfT5cbiAgICAgICAgICA8c3Bhbj5oZWxsbzwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L1JlYWN0LkZyYWdtZW50PlxuICAgIClcbiAgfVxufVxuXG5SZWFjdERPTS5yZW5kZXIoPFNpbXBsZUNvbXBvbmVudCAvPiwgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2FwcCcpKVxuIl19 */");
   export class SimpleComponent extends PureComponent {
     render() {
       return (<React.Fragment>
@@ -228,10 +220,9 @@ exports[`should transform emotion-core-complex.tsx with sourcemap false 1`] = `
 
 File: emotion-core-complex.tsx
 TypeScript before transform:
-  import React from 'react'
-  import { PureComponent } from 'react'
-  import ReactDOM from 'react-dom'
   import { css } from '@emotion/react'
+  import React, { PureComponent } from 'react'
+  import ReactDOM from 'react-dom'
   
   const className = css({
     color: 'red',
@@ -257,11 +248,10 @@ TypeScript before transform:
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-  import { jsx } from "@emotion/react";
-  import React from 'react';
-  import { PureComponent } from 'react';
-  import ReactDOM from 'react-dom';
   import { css } from '@emotion/react';
+  import { jsx } from "@emotion/react";
+  import React, { PureComponent } from 'react';
+  import ReactDOM from 'react-dom';
   const className = /*#__PURE__*/ css({
     color: 'red',
     background: 'yellow',

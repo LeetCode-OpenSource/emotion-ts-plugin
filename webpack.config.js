@@ -1,6 +1,7 @@
 const { join } = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const { createEmotionPlugin } = require('./lib/index')
 

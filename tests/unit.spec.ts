@@ -43,7 +43,7 @@ ${indent(obj.content)}
       ↓ ↓ ↓ ↓ ↓ ↓
 
 TypeScript after transform:
-${indent(obj.transformed).replace(/    /g, '  ')}
+${indent(obj.transformed).replace(/ {4}/g, '  ')}
 `,
 })
 

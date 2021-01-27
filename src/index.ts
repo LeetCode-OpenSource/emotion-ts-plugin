@@ -1,9 +1,10 @@
-import * as ts from 'typescript'
-import { SourceMapGenerator } from 'source-map'
-import * as convert from 'convert-source-map'
 import { basename, relative, extname, normalize } from 'path'
-import { memoize } from 'lodash'
+
+import * as convert from 'convert-source-map'
 import findRoot from 'find-root'
+import { memoize } from 'lodash'
+import { SourceMapGenerator } from 'source-map'
+import * as ts from 'typescript'
 
 const hashString = require('@emotion/hash').default
 
@@ -82,11 +83,13 @@ const createImportJSXAst = memoize((propertyName: string | undefined) => {
   )
 })
 
-export const createEmotionPlugin = (pluginOptions?: Options) => {
+export function createEmotionPlugin(
+  pluginOptions?: Options,
+): ts.TransformerFactory<ts.SourceFile> {
   const options = { ...defaultOptions, ...pluginOptions }
   const modules = new Map(
     defaultEmotionModules
-      .concat(options.customModules || [])
+      .concat(options.customModules ?? [])
       .map((m) => [m.moduleName, m]),
   )
 
@@ -95,7 +98,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
     compilerOptions: ts.CompilerOptions,
   ) {
     const importCalls: ImportInfo[] = []
-    const moduleName = (<ts.StringLiteral>importDeclarationNode.moduleSpecifier)
+    const moduleName = (importDeclarationNode.moduleSpecifier as ts.StringLiteral)
       .text
     if (!importDeclarationNode.importClause) {
       return importCalls
@@ -159,7 +162,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
     return importCalls
   }
 
-  const transformer: ts.TransformerFactory<ts.SourceFile> = (context) => {
+  return (context) => {
     const importCalls: ImportInfo[] = []
     const compilerOptions = context.getCompilerOptions()
     let sourcemapGenerator: SourceMapGenerator
@@ -175,7 +178,7 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
           options.autoInject &&
           // only for jsx: 'react'
           compilerOptions.jsx === ts.JsxEmit.React &&
-          (<ts.StringLiteral>node.moduleSpecifier).text === 'react'
+          (node.moduleSpecifier as ts.StringLiteral).text === 'react'
         ) {
           inserted = true
           return [
@@ -414,5 +417,4 @@ export const createEmotionPlugin = (pluginOptions?: Options) => {
       return distNode
     }
   }
-  return transformer
 }

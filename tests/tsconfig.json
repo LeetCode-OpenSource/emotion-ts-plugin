@@ -1,9 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "include": [
-    "."
-  ],
-  "files": [
-    "jest.d.ts"
-  ]
+  "include": ["."],
+  "files": ["jest.d.ts"]
 }

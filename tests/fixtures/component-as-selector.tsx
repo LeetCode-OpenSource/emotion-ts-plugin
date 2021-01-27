@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import styled from '@emotion/styled'
 
 interface Props {
   backgroundColor: string
@@ -30,7 +30,7 @@ const Parent = styled('div')({
   },
   [`${WrapperPropertyAccess}`]: {
     fontSize: '80px',
-  }
+  },
 })
 
 export class SimpleComponent extends React.PureComponent {
