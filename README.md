@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/LeetCode-OpenSource/emotion-ts-plugin.svg?style=svg)](https://circleci.com/gh/LeetCode-OpenSource/emotion-ts-plugin)
 [![codecov](https://codecov.io/gh/LeetCode-OpenSource/emotion-ts-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/LeetCode-OpenSource/emotion-ts-plugin)
+[![Downloads](https://img.shields.io/npm/dm/emotion-ts-plugin.svg?sanitize=true)](https://npmcharts.com/compare/emotion-ts-plugin?minimal=true)
 
 ## Features
 
