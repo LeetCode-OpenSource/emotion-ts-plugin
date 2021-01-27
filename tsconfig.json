@@ -23,15 +23,8 @@
     "forceConsistentCasingInFileNames": true,
     "target": "ES2018",
     "sourceMap": true,
-    "lib": [
-      "dom",
-      "dom.iterable"
-    ]
+    "lib": ["dom", "dom.iterable"]
   },
-  "include": [
-    "src",
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

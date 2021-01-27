@@ -1,6 +1,6 @@
 declare namespace jest {
   interface Matchers<R> {
-    toMatchSpecificSnapshot(snapshotPath: string): R
+    toMatchSpecificSnapshot: (snapshotPath: string) => R
   }
 }
 

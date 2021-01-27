@@ -74,3 +74,4 @@ typings/
 
 lib/
 .vscode
+esm/
